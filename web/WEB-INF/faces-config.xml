@@ -10,4 +10,17 @@
             <to-view-id>/main.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>fr.umlv.login.Login</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>user</property-name>
+            <value>user</value>
+        </managed-property>
+        <managed-property>
+            <property-name>pass</property-name>
+            <value>pass</value>
+        </managed-property>
+    </managed-bean>
 </faces-config>

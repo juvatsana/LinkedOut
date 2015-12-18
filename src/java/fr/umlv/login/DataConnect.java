@@ -17,9 +17,12 @@ public class DataConnect {
  
     public static Connection getConnection() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/cardb", "pankaj", "pankaj123");
+                    "jdbc:mysql://localhost:3306/cs_duevrp_test?zeroDateTimeBehavior=convertToNull", "root", "");
+            //Connexion en local ok
+
+            System.out.println("connexion seems ok");
             return con;
         } catch (Exception ex) {
             System.out.println("Database.getConnection() Error -->"
