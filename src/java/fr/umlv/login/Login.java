@@ -32,6 +32,14 @@ public class Login {
         return user;
     }
     
+    public void setPass(String pass){
+        this.pass = pass;
+    }
+    
+    public void setUser(String user){
+        this.user = user;
+    }
+    
     public static boolean validate(String user, String password) {
         Connection con = null;
         PreparedStatement ps = null;
