@@ -10,12 +10,14 @@ package fr.umlv.cv;
  * @author Vatsana
  */
 public class Cv {
+    /*
     private User user;
     private Experience experience;
     private Formation formation;
     private Skill skills;
     private Interest interest;
     private Langage langages;
+    */
     
     public Cv(){
         
