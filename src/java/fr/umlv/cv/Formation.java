@@ -16,18 +16,12 @@ import javax.persistence.Id;
  * @author Vatsana
  */
 @Entity
-public class Cv implements Serializable {
+public class Formation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Experience experience;
-    private Interest interest;
-    private Langage langage;
-    private User user;
-    private Skill skill;
-    private Formation formation;
 
     public Long getId() {
         return id;
@@ -47,10 +41,10 @@ public class Cv implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cv)) {
+        if (!(object instanceof Formation)) {
             return false;
         }
-        Cv other = (Cv) object;
+        Formation other = (Formation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -59,7 +53,7 @@ public class Cv implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.umlv.cv.Cv[ id=" + id + " ]";
+        return "fr.umlv.cv.Formation[ id=" + id + " ]";
     }
     
 }
