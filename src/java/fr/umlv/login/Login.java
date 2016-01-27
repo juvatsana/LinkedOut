@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.annotation.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
@@ -30,10 +31,8 @@ public class Login implements Serializable{
     
     private static final long serialVersionUID = 1L;
     
-    @ManagedProperty(value="#{user}")
-    private String user = "test";
-     @ManagedProperty(value="#{pass}")
-    private String pass = "test";
+    private String user = "";
+    private String pass = "";
     
     public Login(){
         user = "";
@@ -50,26 +49,30 @@ public class Login implements Serializable{
     
     public void setPass(String pass){
         this.pass = pass;
-        System.out.println("fr.umlv.login.Login.setPass()");
     }
     
     public void setUser(String user){
         this.user = user;
-        System.out.println("fr.umlv.login.Login.setUser()");
     }
     
     public boolean validate() {
+        System.out.println("VALIDATEEEE");
         Connection con = null;
         PreparedStatement ps = null;
+        Statement statement;
+        ResultSet resultSet;
 
         try {
             
             System.out.println("user : " + user);
             con = DataConnect.getConnection();
-            ps = con.prepareStatement("Select * from utilisateur where login = ? and mdp = ?");
-            ps.setString(1, user);
-            ps.setString(2, pass);
-
+            statement = con.createStatement();
+            resultSet = statement.executeQuery("Select * from Users");
+            resultSet.next();
+            
+            String name =  resultSet.getString(1).toString();
+            System.out.println(name);
+            
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {

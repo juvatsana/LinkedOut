@@ -18,8 +18,7 @@ public class DataConnect {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/cs_duevrp_test?zeroDateTimeBehavior=convertToNull", "root", "");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjetJEE", "root", "");
             //Connexion en local ok
 
             System.out.println("connexion seems ok");

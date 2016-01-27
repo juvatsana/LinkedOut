@@ -22,7 +22,12 @@ public class Experience implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private String dateBegin;
+    private String dateEnd;
+    private String place;
+    private String description;
+    private String mission;
+    
     public Long getId() {
         return id;
     }

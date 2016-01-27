@@ -1,78 +1,78 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
-<h:head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <meta name="description" content=""/>
-    <meta name="author" content=""/>
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
 
-    <title>JuVatsana</title>
+        <title>JuVatsana</title>
 
-    <link href="ressources/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="ressources/css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link href="ressources/css/metisMenu.min.css" rel="stylesheet"/>
+        <link href="ressources/css/metisMenu.min.css" rel="stylesheet"/>
 
-    <link href="ressources/css/sb-admin-2.css" rel="stylesheet"/>
+        <link href="ressources/css/sb-admin-2.css" rel="stylesheet"/>
 
-    <link href="ressources/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="ressources/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
 
 
-</h:head>
+    </h:head>
 
-<h:body class="body-img">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Linked Out</h3>
-                    </div>
-                    <div class="panel-body">
-                        <h:form a:role="form">
-                            <fieldset>
-                                <div class="form-group">
-                                    <h:inputText class="form-control" a:placeholder="E-mail" a:name="email" a:type="email" value="#{login.user}" requiredMessage="Veuillez saisir un nom d'utilisateur"/>
-                                </div>
-                                <div class="form-group">
-                                    <h:inputText class="form-control" a:placeholder="Password" a:name="password" a:type="password" value="#{login.pass}" requiredMessage="Veuillez saisir un mot de passe"/>
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me"/>Remember Me
-                                    </label>
-                                </div>
-                                <!-- <h:commandButton value= "Login" class="btn btn-lg btn-success btn-block" action="main" /> -->
-                                <h:commandButton class="btn btn-lg btn-success btn-block" value="Login" action ="main" />
-                            </fieldset>
-                        </h:form>
+    <h:body class="body-img">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="login-panel panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Linked Out</h3>
+                        </div>
+                        <div class="panel-body">
+                            <h:form a:role="form">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" a:placeholder="E-mail" a:name="email" a:type="email" value="#{login.user}" requiredMessage="Veuillez saisir un nom d'utilisateur"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:inputText class="form-control" a:placeholder="Password" a:name="password" a:type="password" value="#{login.pass}" requiredMessage="Veuillez saisir un mot de passe"/>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="Remember Me"/>Remember Me
+                                        </label>
+                                    </div>
+                                    <!-- <h:commandButton value= "Login" class="btn btn-lg btn-success btn-block" action="main" /> -->
+                                    <h:commandButton class="btn btn-lg btn-success btn-block" value="Login" action ="main" />
+                                </fieldset>
+                            </h:form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- jQuer<f:view>
-<h:form>
-</h:form>
-</f:view>
-y -->
-    <script src="ressources/js/jquery.min.js"></script>
+        <!-- jQuer<f:view>
+            <h:form>
+            </h:form>
+        </f:view>
+        y -->
+        <script src="ressources/js/jquery.min.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="ressources/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="ressources/js/bootstrap.min.js"></script>
 
-    <!-- Metis Menu Plugin JavaScript -->
-    <script src="ressources/js/metisMenu.min.js"></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="ressources/js/metisMenu.min.js"></script>
 
-    <!-- Custom Theme JavaScript -->
-    <script src="ressources/js/sb-admin-2.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="ressources/js/sb-admin-2.js"></script>
 
-</h:body>
+    </h:body>
 
 </html>
