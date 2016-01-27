@@ -66,12 +66,18 @@ public class Login implements Serializable{
         try {
             connexion = DataConnect.getConnection();
             statement = connexion.createStatement();
-            resultSet = statement.executeQuery("Select * from Users");
+            resultSet = statement.executeQuery("Select * from User");
             resultSet.next();
-            
-            String name =  resultSet.getString(1).toString();
-            System.out.println("name = " + name);
-            
+            System.out.println(resultSet.toString());
+            String nameLog =  resultSet.getString(2);
+            String passLog =  resultSet.getString(3);
+            System.out.println("userLog = " + nameLog);
+            System.out.println("passLog = " + passLog);
+            System.out.println("user " +user);
+            System.out.println("pass " +pass);
+            if(nameLog.equals(user) && passLog.equals(pass)) {
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println("Login error -->" + ex.getMessage());
             return false;
