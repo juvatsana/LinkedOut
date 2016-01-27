@@ -37,10 +37,10 @@
                             <h:form a:role="form">
                                 <fieldset>
                                     <div class="form-group">
-                                        <h:inputText class="form-control" a:placeholder="E-mail" a:name="email" a:type="email" value="#{login.user}" requiredMessage="Veuillez saisir un nom d'utilisateur"/>
+                                        <h:inputText class="form-control" a:placeholder="E-mail" a:type="email" value="#{loginBean.user}" requiredMessage="Veuillez saisir un nom d'utilisateur"/>
                                     </div>
                                     <div class="form-group">
-                                        <h:inputText class="form-control" a:placeholder="Password" a:name="password" a:type="password" value="#{login.pass}" requiredMessage="Veuillez saisir un mot de passe"/>
+                                        <h:inputText class="form-control" a:placeholder="Password" a:type="password" value="#{loginBean.pass}" requiredMessage="Veuillez saisir un mot de passe"/>
                                     </div>
                                     <div class="checkbox">
                                         <label>
@@ -48,7 +48,7 @@
                                         </label>
                                     </div>
                                     <!-- <h:commandButton value= "Login" class="btn btn-lg btn-success btn-block" action="main" /> -->
-                                    <h:commandButton class="btn btn-lg btn-success btn-block" value="Login" action ="#{login.validate}" />
+                                    <h:commandButton class="btn btn-lg btn-success btn-block" value="Login" action ="#{loginBean.validate}" />
                                 </fieldset>
                             </h:form>
                         </div>

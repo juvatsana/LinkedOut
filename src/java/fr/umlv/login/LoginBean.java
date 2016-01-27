@@ -7,48 +7,41 @@ package fr.umlv.login;
 
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import javax.annotation.ManagedBean;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+
 
 /**
- * ·
  *
  * @author Vatsana
  */
 
-@SessionScoped
-@ManagedBean
-public class Login implements Serializable{
+@ManagedBean(name = "loginBean")
+@RequestScoped
+public class LoginBean implements Serializable{
     
     private static final long serialVersionUID = 1L;
-    private Connection connexion;
-    private PreparedStatement ps;
-    private Statement statement;
-    private ResultSet resultSet;
+    Connection connexion;
+    Statement statement;
+    ResultSet resultSet;
 
-    
-    private String user = "";
-    private String pass = "";
-    
-    public Login(){
+    private String user;
+    private String pass;
+    private String logUser;
+    private String logPass;
+
+  
+    public LoginBean() {
         user = "";
         pass = "";
     }
-
-    public String getpass(){
+    public String getPass(){
         return pass;
     }
     
-    public String getuser(){
+    public String getUser(){
         return user;
     }
     
@@ -60,33 +53,25 @@ public class Login implements Serializable{
         this.user = user;
     }
     
-    public boolean validate() {
-        System.out.println("VALIDATEEEE");
- 
-        try {
-            connexion = DataConnect.getConnection();
-            statement = connexion.createStatement();
-            resultSet = statement.executeQuery("Select * from User");
-            resultSet.next();
-            System.out.println(resultSet.toString());
-            String nameLog =  resultSet.getString(2);
-            String passLog =  resultSet.getString(3);
-            System.out.println("userLog = " + nameLog);
-            System.out.println("passLog = " + passLog);
-            System.out.println("user " +user);
-            System.out.println("pass " +pass);
-            if(nameLog.equals(user) && passLog.equals(pass)) {
-                return true;
-            }
-        } catch (SQLException ex) {
-            System.out.println("Login error -->" + ex.getMessage());
-            return false;
-        } finally {
-            DataConnect.close(connexion);
-        }
-        return false;
+    public void dbConnexion(String user){
+                try {
+                    connexion = DataConnect.getConnection();
+                    statement = connexion.createStatement();
+                    resultSet = statement.executeQuery("Select * from User");
+                    resultSet.next();
+                    System.out.println(resultSet.toString());
+                    logUser =  resultSet.getString(2);
+                    logPass =  resultSet.getString(3);
+                    }
+                catch(Exception e){
+                    
+                }          
     }
     
-    
-
+    public boolean validate() {
+        System.out.println("VALIDATEEEE");
+        dbConnexion(user);
+        System.out.println("user = "+user);
+        return logPass.equals(pass) && logUser.equals(user);
+    }
 }

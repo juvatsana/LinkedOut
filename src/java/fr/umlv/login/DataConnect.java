@@ -21,7 +21,6 @@ public class DataConnect {
             System.out.println("after driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://sqletud.univ-mlv.fr/mperouma_db","mperouma", "azerty");
             //Connexion en local ok
-
             System.out.println("connexion seems ok");
             return con;
         } catch (Exception ex) {
