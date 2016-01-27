@@ -30,6 +30,11 @@ import javax.servlet.http.HttpSession;
 public class Login implements Serializable{
     
     private static final long serialVersionUID = 1L;
+    private Connection connexion;
+    private PreparedStatement ps;
+    private Statement statement;
+    private ResultSet resultSet;
+
     
     private String user = "";
     private String pass = "";
@@ -57,33 +62,21 @@ public class Login implements Serializable{
     
     public boolean validate() {
         System.out.println("VALIDATEEEE");
-        Connection con = null;
-        PreparedStatement ps = null;
-        Statement statement;
-        ResultSet resultSet;
-
+ 
         try {
-            
-            System.out.println("user : " + user);
-            con = DataConnect.getConnection();
-            statement = con.createStatement();
+            connexion = DataConnect.getConnection();
+            statement = connexion.createStatement();
             resultSet = statement.executeQuery("Select * from Users");
             resultSet.next();
             
             String name =  resultSet.getString(1).toString();
-            System.out.println(name);
+            System.out.println("name = " + name);
             
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                System.out.println(rs.getString("login"));
-                return true;
-            }
         } catch (SQLException ex) {
             System.out.println("Login error -->" + ex.getMessage());
             return false;
         } finally {
-            DataConnect.close(con);
+            DataConnect.close(connexion);
         }
         return false;
     }
