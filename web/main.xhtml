@@ -7,10 +7,65 @@
         xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     
     <h:head>
-        <title>Facelet Title</title>
+        <title>Welcome to LinkedOut</title>
+         <!-- Bootstrap core CSS -->
+        <link href="ressources/css/bootstrap.min.css" rel="stylesheet"></link>
+        <!-- Custom styles for this template -->
+        <link href="ressources/css/cover.css" rel="stylesheet"></link>
     </h:head>
+    
     <h:body>
-        <h2>Welcome #{login.user}</h2>
+    <div class="site-wrapper">
+
+      <div class="site-wrapper-inner">
+
+        <div class="cover-container">
+
+          <div class="masthead clearfix">
+            <div class="inner">
+              <h3 class="masthead-brand">LinkedOut HomePage</h3>
+              <nav>
+                <ul class="nav masthead-nav">
+                  <li class="active"><a href="#">Formation</a></li>
+                  <li><a href="#">Experience</a></li>
+                  <li><a href="#">Interest</a></li>
+                  <li><a href="#">Langage</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+
+          <div class="inner cover">
+            <h1 class="cover-heading">Formation</h1>
+            
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Diplome</span>
+              <input type="text" class="form-control" aria-describedby="basic-addon1"></input>
+            </div>
+            <br></br>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Ecole</span>
+              <input type="text" class="form-control" aria-describedby="basic-addon1"></input>
+            </div>
+            <br></br>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Année</span>
+              <input type="text" class="form-control" aria-describedby="basic-addon1"></input>
+            </div>
+            <br></br>
+          </div>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p>Copyright , by <a href="#">jvo et mpe</a>.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
     </h:body>
 </html>
 

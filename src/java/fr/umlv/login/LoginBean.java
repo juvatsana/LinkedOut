@@ -69,7 +69,6 @@ public class LoginBean implements Serializable{
     }
     
     public boolean validate() {
-        System.out.println("VALIDATEEEE");
         dbConnexion(user);
         System.out.println("user = "+user);
         return logPass.equals(pass) && logUser.equals(user);
