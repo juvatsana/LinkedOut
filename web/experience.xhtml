@@ -7,6 +7,14 @@
         xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     
     <h:head>
+        <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(document).on('click', '#save', function (event) {
+            $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
+            $("#validation").delay(2000).fadeOut(500);
+        });
+        
+        </script>
         <title>Welcome to LinkedOut</title>
          <!-- Bootstrap core CSS -->
         <link href="ressources/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -26,8 +34,8 @@
               <h3 class="masthead-brand">LinkedOut HomePage</h3>
               <nav>
                 <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Formation</a></li>
-                  <li><a href="#">Experience</a></li>
+                  <li><h:outputLink value="formation.xhtml">Formation</h:outputLink></li>
+                  <li class="active"><a href="#">Experience</a></li>
                   <li><a href="#">Interest</a></li>
                   <li><a href="#">Langage</a></li>
                 </ul>
@@ -36,7 +44,7 @@
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Formation</h1>
+            <h1 class="cover-heading">Experience</h1>
             
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">Diplome</span>
@@ -54,7 +62,10 @@
             </div>
             <br></br>
           </div>
-
+            
+          <h:commandButton class="btn btn-success btn-lg" id="save" value="Enregistrer" action ="#" />
+          <br></br>
+          
           <div class="mastfoot">
             <div class="inner">
               <p>Copyright , by <a href="#">jvo et mpe</a>.</p>
@@ -68,4 +79,3 @@
     </div>
     </h:body>
 </html>
-

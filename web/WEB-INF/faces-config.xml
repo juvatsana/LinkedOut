@@ -8,7 +8,7 @@
         <navigation-case>
             <from-action>#{loginBean.validate}</from-action>
             <from-outcome>true</from-outcome>
-            <to-view-id>/main.xhtml</to-view-id>
+            <to-view-id>/formation.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-action>#{loginBean.validate}</from-action>
@@ -16,6 +16,20 @@
             <to-view-id>/auth_error.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/formation.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/experience.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/experience.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/formation.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
     <managed-bean>
         <managed-bean-name>loginBean</managed-bean-name>
         <managed-bean-class>fr.umlv.login.LoginBean</managed-bean-class>

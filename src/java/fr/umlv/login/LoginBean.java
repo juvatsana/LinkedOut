@@ -73,4 +73,8 @@ public class LoginBean implements Serializable{
         System.out.println("user = "+user);
         return logPass.equals(pass) && logUser.equals(user);
     }
+    
+    public String go(){
+        return "experience";
+    }
 }
