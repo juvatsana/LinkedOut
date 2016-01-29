@@ -22,11 +22,23 @@
         <navigation-case>
             <to-view-id>/experience.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <to-view-id>/langage.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/interest.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     <navigation-rule>
         <from-view-id>/experience.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/formation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/interest.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/langage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
@@ -35,4 +47,28 @@
         <managed-bean-class>fr.umlv.login.LoginBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    <navigation-rule>
+        <from-view-id>/interest.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/experience.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/formation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/langage.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/langage.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/formation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/experience.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/interest.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
