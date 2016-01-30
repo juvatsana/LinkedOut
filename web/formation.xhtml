@@ -9,10 +9,15 @@
     <h:head>
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
         <script type="text/javascript">
-        $(document).on('click', '#save', function (event) {
+        $(document).on('click', '#save', function (event){
             $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
             $("#validation").delay(2000).fadeOut(500);
         });
+        
+        $(document).on('mouseover', '#save', function (event){
+            window.location.href = "http://www.google.com";
+        });
+
         
         </script>
         <title>Welcome to LinkedOut</title>
@@ -36,8 +41,8 @@
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Formation</a></li>
                   <li><h:outputLink value="experience.xhtml">Experience</h:outputLink></li>
-                  <li><a href="#">Interest</a></li>
-                  <li><a href="#">Langage</a></li>
+                  <li><h:outputLink value="interest.xhtml">Interest</h:outputLink></li>
+                  <li><h:outputLink value="langage.xhtml">Langage</h:outputLink></li>
                 </ul>
               </nav>
             </div>
