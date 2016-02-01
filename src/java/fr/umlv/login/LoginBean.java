@@ -70,7 +70,6 @@ public class LoginBean implements Serializable{
     
     public boolean validate() {
         dbConnexion(user);
-        System.out.println("user = "+user);
         return logPass.equals(pass) && logUser.equals(user);
     }
     

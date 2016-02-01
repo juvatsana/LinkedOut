@@ -1,110 +1,118 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-        xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
-    
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
     <h:head>
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
         <script type="text/javascript" src="functionJavaScript.js"></script>
         <script type="text/javascript">
-        function returnSummary()
-        {
-            var degree = document.getElementById("degree").value;
-            var school = document.getElementById("school").value;
-            var year = document.getElementById("year").value;
-            var line = '<div>'+'['+year+'] '+degree+' at '+school+'<a href="#" class="remove_field" style="margin-left : 15px;"><img src="ressources/img/icon_cross.png" alt="remove"/></a></div>';
-            return line;
-        }   
-        $(document).on('click', '#save', function (event){
-            /*
-            $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
-            $("#validation").delay(2000).fadeOut(500);
-            */
-            if(document.getElementById("summary").style.visibility==="hidden") {
-                document.getElementById("summary").style.visibility="visible";
-            } 
-            var wrapper = $(".summary");
-            //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
-            $(wrapper).append(returnSummary());
-            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-                e.preventDefault(); $(this).parent('div').remove(); x--;
+            function returnSummary()
+            {
+                var degree = document.getElementById("degree").value;
+                var school = document.getElementById("school").value;
+                var year = document.getElementById("year").value;
+                var line = '<div>' + '[' + year + '] ' + degree + ' at ' + school + '<a href="#" class="remove_field" style="margin-left : 15px;"><img src="ressources/img/icon_cross.png" alt="remove"/></a></div>';
+                return line;
+            }
+            $(document).on('click', '#save', function (event) {
+                /*
+                 $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
+                 $("#validation").delay(2000).fadeOut(500);
+                 */
+                if (document.getElementById("summary").style.visibility === "hidden") {
+                    document.getElementById("summary").style.visibility = "visible";
+                }
+                var wrapper = $(".summary");
+                //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
+                $(wrapper).append(returnSummary());
+                $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                    x--;
+                });
             });
-        });
-        document.getElementById("suivant").onclick = function () {
-        location.href = "/Experience.xhtml";
-        };
+            document.getElementById("suivant").onclick = function () {
+                location.href = "/Experience.xhtml";
+            };
         </script>
         <title>Welcome to LinkedOut</title>
-         <!-- Bootstrap core CSS -->
+        <!-- Bootstrap core CSS -->
         <link href="ressources/css/bootstrap.min.css" rel="stylesheet"></link>
         <!-- Custom styles for this template -->
         <link href="ressources/css/cover.css" rel="stylesheet"></link>
     </h:head>
-    
+
     <h:body>
-    <div class="site-wrapper">
+        <div class="site-wrapper">
 
-      <div class="site-wrapper-inner">
+            <div class="site-wrapper-inner">
 
-        <div class="cover-container">
+                <div class="cover-container">
 
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand">LinkedOut HomePage</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Formation</a></li>
-                  <li><h:outputLink value="experience.xhtml">Experience</h:outputLink></li>
-                  <li><h:outputLink value="interest.xhtml">Interest</h:outputLink></li>
-                  <li><h:outputLink value="langage.xhtml">Langage</h:outputLink></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+                    <div class="masthead clearfix">
+                        <div class="inner">
+                            <h3 class="masthead-brand">LinkedOut HomePage</h3>
+                            <nav>
+                                <ul class="nav masthead-nav">
+                                    <li class="active"><a href="#">Formation</a></li>
+                                    <li><h:outputLink value="experience.xhtml">Experience</h:outputLink></li>
+                                    <li><h:outputLink value="interest.xhtml">Interest</h:outputLink></li>
+                                    <li><h:outputLink value="langage.xhtml">Langage</h:outputLink></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
 
-          <div class="inner cover">
-            <h1 class="cover-heading">Formation</h1>
-            
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Diplome</span>
-              <input id="degree" type="text" class="form-control" aria-describedby="basic-addon1"></input>
+                    <h:form>
+
+                        <div class="inner cover">
+                            <h1 class="cover-heading">Formation</h1>
+
+
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Diplome</span>
+                                <h:inputText id="degree" a:type="text" class="form-control" a:aria-describedby="basic-addon1" value="#{formationBean.diplome}"></h:inputText>
+                            </div>
+                            <br></br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Ecole</span>
+                                <h:inputText id="school" a:type="text" class="form-control" a:aria-describedby="basic-addon1" value="#{formationBean.school}"></h:inputText>
+                            </div>
+                            <br></br>
+                            <div class="input-group">
+                                <span class="input-group-addon" id="basic-addon1">Année</span>
+                                <h:inputText id ="year" a:type="text" class="form-control" a:aria-describedby="basic-addon1" value="#{formationBean.year}"></h:inputText>
+                            </div>
+                            <br></br>
+
+                        </div>
+
+                        <h:commandButton class="btn btn-success btn-lg" id="save" value="AJOUTER" action ="#{formationBean.saveFormation}" />
+                        <br></br>
+                        <div class="inner cover">
+                            <div id="summary" class="summary" style="visibility: hidden;">
+                                <h3 class="cover-heading">FORMATION :</h3>
+                            </div>
+                        </div>
+                        <h:button class="btn btn-primary btn-lg" id="suivant" value="SUIVANT"/>
+
+                    </h:form>
+
+                    <br></br>
+                    <div class="mastfoot">
+                        <div class="inner">
+                            <p>Copyright , by <a href="#">jvo et mpe</a>.</p>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-            <br></br>
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Ecole</span>
-              <input id="school" type="text" class="form-control" aria-describedby="basic-addon1"></input>
-            </div>
-            <br></br>
-            <div class="input-group">
-              <span class="input-group-addon" id="basic-addon1">Année</span>
-              <input id ="year" type="text" class="form-control" aria-describedby="basic-addon1"></input>
-            </div>
-            <br></br>
-          </div>
-            
-          <h:commandButton class="btn btn-success btn-lg" id="save" value="AJOUTER" action ="#" />
-          <br></br>
-          <div class="inner cover">
-            <div id="summary" class="summary" style="visibility: hidden;">
-              <h3 class="cover-heading">FORMATION :</h3>
-            </div>
-          </div>
-          <h:button class="btn btn-primary btn-lg" id="suivant" value="SUIVANT"/>
-          
-          <br></br>
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Copyright , by <a href="#">jvo et mpe</a>.</p>
-            </div>
-          </div>
-          
+
         </div>
-
-      </div>
-
-    </div>
     </h:body>
 </html>

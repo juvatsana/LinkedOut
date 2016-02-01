@@ -41,12 +41,6 @@
             <to-view-id>/langage.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-    
-    <managed-bean>
-        <managed-bean-name>loginBean</managed-bean-name>
-        <managed-bean-class>fr.umlv.login.LoginBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
     <navigation-rule>
         <from-view-id>/interest.xhtml</from-view-id>
         <navigation-case>
@@ -71,4 +65,15 @@
             <to-view-id>/interest.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <managed-bean>
+        <managed-bean-name>loginBean</managed-bean-name>
+        <managed-bean-class>fr.umlv.login.LoginBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
+        <managed-bean>
+        <managed-bean-name>formationBean</managed-bean-name>
+        <managed-bean-class>fr.umlv.login.FormationBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
