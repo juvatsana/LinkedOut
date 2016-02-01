@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -70,16 +71,16 @@ public class FormationBean implements Serializable {
     }
 
     public void saveFormation() {
-        String request = "INSERT INTO `Formation`(`diplome`, `school`, `year`) VALUES ('" + diplome + "','" + school + "'," + year + ")";
+        String request = "INSERT INTO Formation(diplome, school, year) VALUES ('" + diplome + "','" + school + "'," + year + ")";
         try {
 
             connexion = DataConnect.getConnection();
             statement = connexion.createStatement();
-            resultSet = statement.executeQuery(request);
-            resultSet.next();
-            System.out.println("SAVE FORMATION : " + resultSet.toString());
+            
+            statement.execute(request);
         } catch (Exception e) {
             System.err.println("Error save Formation " + request);
+            throw new FacesException(e);
         }
     }
 }
