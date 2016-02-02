@@ -70,7 +70,7 @@ public class FormationBean implements Serializable {
         this.year = year;
     }
 
-    public void saveFormation() {
+    public void saveFormation() { //TODO ajouter l'id de l'user
         String request = "INSERT INTO Formation(diplome, school, year) VALUES ('" + diplome + "','" + school + "'," + year + ")";
         try {
 

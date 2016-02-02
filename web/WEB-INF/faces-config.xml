@@ -76,4 +76,9 @@
         <managed-bean-class>fr.umlv.login.FormationBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>experienceBean</managed-bean-name>
+        <managed-bean-class>fr.umlv.login.ExperienceBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+    </managed-bean>
 </faces-config>
