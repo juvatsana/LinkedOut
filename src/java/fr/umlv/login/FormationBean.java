@@ -5,10 +5,12 @@
  */
 package fr.umlv.login;
 
+import fr.umlv.cv.Formation;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -28,8 +30,10 @@ public class FormationBean implements Serializable {
     private String diplome;
     private String school;
     private String year;
+    private ArrayList<Formation> listFormations;
 
     public FormationBean() {
+        listFormations = new ArrayList<>();
     }
 
     /**
@@ -74,8 +78,12 @@ public class FormationBean implements Serializable {
         this.year = year;
     }
 
+    public ArrayList<Formation> getList(){
+        return listFormations;
+    }
+    
     public void saveFormation() { //TODO ajouter l'id de l'user
-        String request = "INSERT INTO Formation(diplome, school, year) VALUES ('" + diplome + "','" + school + "'," + year + ")";
+        String request = "INSERT INTO Formation(diplome, school, year,fk_user) VALUES ('" + diplome + "','" + school + "'," + year + "," + LoginBean.idUser + ")";
         try {
 
             connexion = DataConnect.getConnection();
@@ -111,12 +119,16 @@ public class FormationBean implements Serializable {
             }
 
             if (size != 0) {
-                this.idFormation = resultSet.getInt(1);
-                this.diplome = resultSet.getString(2);
-                this.school = resultSet.getString(3);
-                this.year = resultSet.getString(4);
-
-                System.out.println("GET IS OK");
+                //TODO ajouter dans le tableau
+                for (int i = 0; i < size; i++) {
+                    this.idFormation = resultSet.getInt(1);
+                    this.diplome = resultSet.getString(2);
+                    this.school = resultSet.getString(3);
+                    this.year = resultSet.getString(4);
+                    
+                    listFormations.add(new Formation(idFormation,diplome,school,year));
+                    
+                }
             }
 
         } catch (Exception e) {
@@ -124,4 +136,5 @@ public class FormationBean implements Serializable {
             throw new FacesException(e);
         }
     }
+
 }

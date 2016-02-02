@@ -22,38 +22,71 @@ public class Formation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String diplome;
+    private String school;
+    private String year;
 
+    public Formation(long id,String diplome,String school,String year){
+        this.id = id;
+        this.diplome = diplome;
+        this.school = school;
+        this.year = year;
+    }
+    
+    /**
+     * @return the id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * @param id the id to set
+     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    /**
+     * @return the diplome
+     */
+    public String getDiplome() {
+        return diplome;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Formation)) {
-            return false;
-        }
-        Formation other = (Formation) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    /**
+     * @param diplome the diplome to set
+     */
+    public void setDiplome(String diplome) {
+        this.diplome = diplome;
     }
 
-    @Override
-    public String toString() {
-        return "fr.umlv.cv.Formation[ id=" + id + " ]";
+    /**
+     * @return the school
+     */
+    public String getSchool() {
+        return school;
+    }
+
+    /**
+     * @param school the school to set
+     */
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    /**
+     * @return the year
+     */
+    public String getYear() {
+        return year;
+    }
+
+    /**
+     * @param year the year to set
+     */
+    public void setYear(String year) {
+        this.year = year;
     }
     
 }

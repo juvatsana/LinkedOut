@@ -4,40 +4,42 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
-        <script type="text/javascript" src="functionJavaScript.js"></script>
         <script type="text/javascript">
-            function returnSummary()
-            {
-                var degree = document.getElementById("degree").value;
-                var school = document.getElementById("school").value;
-                var year = document.getElementById("year").value;
-                var line = '<div>' + '[' + year + '] ' + degree + ' at ' + school + '<a href="#" class="remove_field" style="margin-left : 15px;"><img src="ressources/img/icon_cross.png" alt="remove"/></a></div>';
-                return line;
-            }
+            /*
+             function returnSummary()
+             {
+             var degree = document.getElementById("degree").value;
+             var school = document.getElementById("school").value;
+             var year = document.getElementById("year").value;
+             var line = '<div>' + '[' + year + '] ' + degree + ' at ' + school + '<a href="#" class="remove_field" style="margin-left : 15px;"><img src="ressources/img/icon_cross.png" alt="remove"/></a></div>';
+             return line;
+             }
+             */
             $(document).on('click', '#save', function (event) {
+                $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
+                $("#validation").delay(2000).fadeOut(500);
+
+
                 /*
-                 $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
-                 $("#validation").delay(2000).fadeOut(500);
+                 if (document.getElementById("summary").style.visibility === "hidden") {
+                 document.getElementById("summary").style.visibility = "visible";
+                 }
+                 var wrapper = $(".summary");
+                 //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
+                 $(wrapper).append(returnSummary());
+                 $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
+                 e.preventDefault();
+                 $(this).parent('div').remove();
+                 x--;
+                 });
                  */
-                if (document.getElementById("summary").style.visibility === "hidden") {
-                    document.getElementById("summary").style.visibility = "visible";
-                }
-                var wrapper = $(".summary");
-                //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
-                $(wrapper).append(returnSummary());
-                $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                    e.preventDefault();
-                    $(this).parent('div').remove();
-                    x--;
-                });
             });
-            document.getElementById("suivant").onclick = function () {
-                location.href = "/Experience.xhtml";
-            };
+
         </script>
         <title>Welcome to LinkedOut</title>
         <!-- Bootstrap core CSS -->
@@ -98,14 +100,34 @@
 
                         <h:commandButton class="btn btn-success btn-lg" id="save" value="AJOUTER" action ="#{formationBean.saveFormation}" />
                         <br></br>
-                        <div class="inner cover">
-                            <div id="summary" class="summary" style="visibility: hidden;">
-                                <h3 class="cover-heading">FORMATION :</h3>
-                            </div>
-                        </div>
-                        <h:button class="btn btn-primary btn-lg" id="suivant" value="SUIVANT"/>
-
                     </h:form>
+                    <br></br>
+                    <div class="table-responsive">          
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Diplome</th>
+                                    <th>Ecole</th>
+                                    <th>Année</th>
+                                    <th>Modifier</th>
+                                    <th>Supprimer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${formationBean.list}" var="item">
+                                    <tr>
+                                        <td>${item.id}</td>
+                                        <td>${item.diplome}</td>
+                                        <td>${item.school}</td>
+                                        <td>${item.year}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <br></br>
                     <div class="mastfoot">
