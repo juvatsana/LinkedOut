@@ -24,9 +24,13 @@ public class FormationBean implements Serializable {
     Connection connexion;
     Statement statement;
     ResultSet resultSet;
+    private int idFormation;
     private String diplome;
     private String school;
     private String year;
+
+    public FormationBean() {
+    }
 
     /**
      * @return the diplome
@@ -76,10 +80,43 @@ public class FormationBean implements Serializable {
 
             connexion = DataConnect.getConnection();
             statement = connexion.createStatement();
-            
+
             statement.execute(request);
         } catch (Exception e) {
             System.err.println("Error save Formation " + request);
+            throw new FacesException(e);
+        }
+    }
+
+    public void getFormation() {
+        //Recupere la formation en base si existante
+        String request = "SELECT * FROM Formation WHERE fk_user = " + LoginBean.idUser;
+        System.out.println(request);
+
+        try {
+            connexion = DataConnect.getConnection();
+            statement = connexion.createStatement();
+            resultSet = statement.executeQuery(request);
+            resultSet.next();
+
+            int size = 0; //Recupere le nombre de resultat de la requete
+            if (resultSet != null) {
+                resultSet.beforeFirst();
+                resultSet.last();
+                size = resultSet.getRow();
+            }
+
+            if (size != 0) {
+                this.idFormation = resultSet.getInt(1);
+                this.diplome = resultSet.getString(2);
+                this.school = resultSet.getString(3);
+                this.year = resultSet.getString(4);
+
+                System.out.println("GET IS OK");
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error get Formation " + request);
             throw new FacesException(e);
         }
     }

@@ -32,6 +32,7 @@ public class LoginBean implements Serializable{
     private String logUser;
     private String logPass;
 
+    static int idUser;
   
     public LoginBean() {
         user = "";
@@ -59,7 +60,7 @@ public class LoginBean implements Serializable{
                     statement = connexion.createStatement();
                     resultSet = statement.executeQuery("Select * from User");
                     resultSet.next();
-                    System.out.println(resultSet.toString());
+                    idUser = resultSet.getInt(1);
                     logUser =  resultSet.getString(2);
                     logPass =  resultSet.getString(3);
                     }
