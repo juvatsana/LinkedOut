@@ -88,8 +88,12 @@ public class FormationBean implements Serializable {
         }
     }
 
+    /**
+     *
+     */
     public void getFormation() {
         //Recupere la formation en base si existante
+        System.out.println("GET FORMATION");
         String request = "SELECT * FROM Formation WHERE fk_user = " + LoginBean.idUser;
         System.out.println(request);
 
