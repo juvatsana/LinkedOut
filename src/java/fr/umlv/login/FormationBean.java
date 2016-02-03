@@ -109,26 +109,15 @@ public class FormationBean implements Serializable {
             connexion = DataConnect.getConnection();
             statement = connexion.createStatement();
             resultSet = statement.executeQuery(request);
-            resultSet.next();
-
-            int size = 0; //Recupere le nombre de resultat de la requete
-            if (resultSet != null) {
-                resultSet.beforeFirst();
-                resultSet.last();
-                size = resultSet.getRow();
-            }
-
-            if (size != 0) {
-                //TODO ajouter dans le tableau
-                for (int i = 0; i < size; i++) {
-                    this.idFormation = resultSet.getInt(1);
+            
+            while(resultSet.next())
+            {
+               this.idFormation = resultSet.getInt(1);
                     this.diplome = resultSet.getString(2);
                     this.school = resultSet.getString(3);
                     this.year = resultSet.getString(4);
                     
-                    listFormations.add(new Formation(idFormation,diplome,school,year));
-                    
-                }
+                    listFormations.add(new Formation(idFormation,diplome,school,year)); 
             }
 
         } catch (Exception e) {
