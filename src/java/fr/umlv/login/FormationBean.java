@@ -78,10 +78,10 @@ public class FormationBean implements Serializable {
         this.year = year;
     }
 
-    public ArrayList<Formation> getList(){
+    public ArrayList<Formation> getList() {
         return listFormations;
     }
-    
+
     public void saveFormation() { //TODO ajouter l'id de l'user
         String request = "INSERT INTO Formation(diplome, school, year,fk_user) VALUES ('" + diplome + "','" + school + "'," + year + "," + LoginBean.idUser + ")";
         try {
@@ -101,23 +101,15 @@ public class FormationBean implements Serializable {
      */
     public void getFormation() {
         //Recupere la formation en base si existante
-        System.out.println("GET FORMATION");
         String request = "SELECT * FROM Formation WHERE fk_user = " + LoginBean.idUser;
-        System.out.println(request);
 
         try {
             connexion = DataConnect.getConnection();
             statement = connexion.createStatement();
             resultSet = statement.executeQuery(request);
-            
-            while(resultSet.next())
-            {
-               this.idFormation = resultSet.getInt(1);
-                    this.diplome = resultSet.getString(2);
-                    this.school = resultSet.getString(3);
-                    this.year = resultSet.getString(4);
-                    
-                    listFormations.add(new Formation(idFormation,diplome,school,year)); 
+
+            while (resultSet.next()) {
+                listFormations.add(new Formation(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4)));
             }
 
         } catch (Exception e) {

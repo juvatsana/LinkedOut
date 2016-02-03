@@ -9,6 +9,7 @@
 
     <h:head>
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript">
             /*
              function returnSummary()
@@ -38,6 +39,14 @@
                  x--;
                  });
                  */
+            });
+
+            $(document).ready(function () {
+                $('#table').DataTable({
+                    "scrollY": "250px",
+                    "scrollCollapse": true,
+                    "paging": false
+                });
             });
 
         </script>
@@ -102,9 +111,12 @@
                         <br></br>
                     </h:form>
                     <br></br>
+                    <br></br>
+                    
+                    
                     <div class="table-responsive">          
-                        <table class="table">
-                            <thead>
+                        <table id="table" class="table">
+                               <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Diplome</th>
@@ -121,8 +133,16 @@
                                         <td>${item.diplome}</td>
                                         <td>${item.school}</td>
                                         <td>${item.year}</td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>
+                                            <button id="${item.id}" type="button" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-pencil"></span>Modifier
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button id="${item.id}" type="button" class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-pencil"></span>Supprimer
+                                            </button>
+                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -130,12 +150,6 @@
                     </div>
 
                     <br></br>
-                    <div class="mastfoot">
-                        <div class="inner">
-                            <p>Copyright , by <a href="#">jvo et mpe</a>.</p>
-                        </div>
-                    </div>
-
                 </div>
 
             </div>
