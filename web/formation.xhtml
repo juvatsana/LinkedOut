@@ -11,45 +11,25 @@
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript">
-            /*
-             function returnSummary()
-             {
-             var degree = document.getElementById("degree").value;
-             var school = document.getElementById("school").value;
-             var year = document.getElementById("year").value;
-             var line = '<div>' + '[' + year + '] ' + degree + ' at ' + school + '<a href="#" class="remove_field" style="margin-left : 15px;"><img src="ressources/img/icon_cross.png" alt="remove"/></a></div>';
-             return line;
-             }
-             */
-            $(document).on('click', '#save', function (event) {
-                $("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
-                $("#validation").delay(2000).fadeOut(500);
 
 
-                /*
-                 if (document.getElementById("summary").style.visibility === "hidden") {
-                 document.getElementById("summary").style.visibility = "visible";
-                 }
-                 var wrapper = $(".summary");
-                 //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">Remove</a></div>');
-                 $(wrapper).append(returnSummary());
-                 $(wrapper).on("click", ".remove_field", function (e) { //user click on remove text
-                 e.preventDefault();
-                 $(this).parent('div').remove();
-                 x--;
-                 });
-                 */
-            });
 
             $(document).ready(function () {
                 $('#table').DataTable({
-                    "scrollY": "250px",
+                    "scrollY": "200px",
                     "scrollCollapse": true,
                     "paging": false
                 });
             });
+            
+            $(document).on('click', '#save', function (event) {
+                //$("#save").next('br').after('<div id="validation" class="alert alert-success"><strong>Success!</strong> Votre formation a été enregistré.</div>');
+                //$("#validation").delay(2000).fadeOut(500);
+                alert("click save");
+            });
 
         </script>
+        
         <title>Welcome to LinkedOut</title>
         <!-- Bootstrap core CSS -->
         <link href="ressources/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -112,11 +92,11 @@
                     </h:form>
                     <br></br>
                     <br></br>
-                    
-                    
+
+
                     <div class="table-responsive">          
                         <table id="table" class="table">
-                               <thead>
+                            <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Diplome</th>
@@ -129,18 +109,18 @@
                             <tbody>
                                 <c:forEach items="${formationBean.list}" var="item">
                                     <tr>
-                                        <td>${item.id}</td>
-                                        <td>${item.diplome}</td>
-                                        <td>${item.school}</td>
-                                        <td>${item.year}</td>
+                                        <td>${item.value.id}</td>
+                                        <td>${item.value.diplome}</td>
+                                        <td>${item.value.school}</td>
+                                        <td>${item.value.year}</td>
                                         <td>
-                                            <button id="${item.id}" type="button" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-pencil"></span>Modifier
+                                            <button id="${item.value.id}" type="button" class="btn btn-default btn-sm">
+                                                <span class="glyphicon-pencil"></span> Modifier
                                             </button>
                                         </td>
                                         <td>
-                                            <button id="${item.id}" type="button" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-pencil"></span>Supprimer
+                                            <button id="${item.value.id}" type="button" class="btn btn-default btn-sm">
+                                                <span class=""></span> Supprimer
                                             </button>
                                         </td>
                                     </tr>
