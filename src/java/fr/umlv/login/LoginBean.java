@@ -26,18 +26,28 @@ public class LoginBean implements Serializable{
     Connection connexion;
     Statement statement;
     ResultSet resultSet;
-
+    
+    private String error;
     private String user;
     private String pass;
     private String logUser;
     private String logPass;
-
     static int idUser;
-  
+    
+    
     public LoginBean() {
         user = "";
         pass = "";
     }
+    
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+    
     public String getPass(){
         return pass;
     }
@@ -58,7 +68,7 @@ public class LoginBean implements Serializable{
                 try {
                     connexion = DataConnect.getConnection();
                     statement = connexion.createStatement();
-                    resultSet = statement.executeQuery("Select * from User");
+                    resultSet = statement.executeQuery("SELECT * FROM `User` WHERE `username` = '"+user+"'");
                     resultSet.next();
                     idUser = resultSet.getInt(1);
                     logUser =  resultSet.getString(2);
@@ -71,7 +81,15 @@ public class LoginBean implements Serializable{
     
     public boolean validate() {
         dbConnexion(user);
-        return logPass.equals(pass) && logUser.equals(user);
+        boolean validatePass = pass.equals(logPass);
+        boolean validateUser = user.equals(logUser);
+        
+        if(!validateUser) {
+            this.error = "This user does not exist, sign up pls";
+        } else if(validateUser && !validatePass){
+            this.error = "Wrong password for user :"+user;
+        } 
+        return validateUser && validatePass;
     }
     
     public String go(){

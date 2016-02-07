@@ -12,6 +12,7 @@ package fr.umlv.login;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
  
 public class DataConnect {
  
@@ -20,8 +21,8 @@ public class DataConnect {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost/ProjetJEE","root", "root");
             return con;
-        } catch (Exception ex) {
-            System.out.println("Database.getConnection() Error -->"+ ex.getMessage());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
+            System.err.println("Database.getConnection() Error -->"+ex+ ex.getMessage());
             return null;
         }
     }
