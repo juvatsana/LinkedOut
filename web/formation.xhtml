@@ -11,9 +11,6 @@
         <script type="text/javascript" src="ressources/js/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript">
-
-
-
             $(document).ready(function () {
                 $('#table').DataTable({
                     "scrollY": "200px",
@@ -71,7 +68,7 @@
 
                             <div class="input-group">
                                 <span class="input-group-addon" id="basic-addon1">Diplome</span>
-                                <h:inputText id="degree" a:type="text" class="form-control" a:aria-describedby="basic-addon1" value="#{formationBean.diplome}"></h:inputText>
+                                <h:inputText id="degree" a:type="text" class="form-control" a:aria-describedby="basic-addon1" value="#{formationBean.diploma}"></h:inputText>
                             </div>
                             <br></br>
                             <div class="input-group">
@@ -110,7 +107,7 @@
                                 <c:forEach items="${formationBean.list}" var="item">
                                     <tr>
                                         <td>${item.value.id}</td>
-                                        <td>${item.value.diplome}</td>
+                                        <td>${item.value.diploma}</td>
                                         <td>${item.value.school}</td>
                                         <td>${item.value.year}</td>
                                         <td>
