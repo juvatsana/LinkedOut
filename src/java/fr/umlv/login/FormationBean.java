@@ -40,17 +40,17 @@ public class FormationBean implements Serializable {
     }
 
     /**
-     * @return the diplome
+     * @return the diploma
      */
-    public String getDiplome() {
+    public String getDiploma() {
         return diploma;
     }
 
     /**
-     * @param diplome the diplome to set
+     * @param diploma the diploma to set
      */
-    public void setDiplome(String diplome) {
-        this.diploma = diplome;
+    public void setDiploma(String diploma) {
+        this.diploma = diploma;
     }
 
     /**
