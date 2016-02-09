@@ -28,7 +28,7 @@ public class FormationBean implements Serializable {
     Statement statement;
     ResultSet resultSet;
     private int idFormation;
-    private String diplome;
+    private String diploma;
     private String school;
     private String year;
     private ArrayList<Formation> listFormations;
@@ -86,7 +86,7 @@ public class FormationBean implements Serializable {
     }
 
     public void saveFormation() { //TODO ajouter l'id de l'user
-        String request = "INSERT INTO Formation(diplome, school, year,fk_user) VALUES ('" + diplome + "','" + school + "'," + year + "," + LoginBean.idUser + ")";
+        String request = "INSERT INTO Formation(diploma, school, year,fk_user) VALUES ('" + diploma + "','" + school + "'," + year + "," + LoginBean.idUser + ")";
         try {
 
             connexion = DataConnect.getConnection();
