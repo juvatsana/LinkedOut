@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 
 
@@ -20,7 +20,7 @@ import javax.faces.bean.ManagedBean;
  */
 
 @ManagedBean(name = "loginBean")
-@ApplicationScoped
+@SessionScoped
 public class LoginBean implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -34,6 +34,14 @@ public class LoginBean implements Serializable{
     private String logUser;
     private String logPass;
     private int idUser;
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
     
     
     public LoginBean() {

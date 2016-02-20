@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- charge l'id user de login et avec charge le bon cv dans le cvBean  -->
+        <f:metadata>
+            <f:viewAction action="#{cvBean.init({loginBean.idUser})}" />
+        </f:metadata>
+    </head>
+    <body>
+        <!-- exemple pour verfiier comment retrouver les donné -->
+        #{cvBean.cv.idCv}
+        <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
+            <h1>#{item.diploma} </h1>
+            <h1>#{item.year} </h1>
+            <h1>#{item.school} </h1>
+            <h1>#{item.public1} </h1>
+        </ui:repeat>  
+        <ui:repeat value="#{cvBean.cv.experienceCollection}" var="item">
+            <h1>#{item.contractType} </h1>
+            <h1>#{item.dateStart} </h1>
+            <h1>#{item.dateEnd} </h1>
+            <h1>#{item.enterprise} </h1>
+            <h1>#{item.description} </h1>
+            <h1>#{item.public1} </h1>        
+        </ui:repeat> 
+        
+    </body>
+</html>
