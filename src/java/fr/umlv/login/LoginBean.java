@@ -5,12 +5,13 @@
  */
 package fr.umlv.login;
 
+import fr.umlv.database.DataConnect;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
 
 /**
@@ -19,7 +20,7 @@ import javax.faces.bean.RequestScoped;
  */
 
 @ManagedBean(name = "loginBean")
-@RequestScoped
+@ApplicationScoped
 public class LoginBean implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -32,7 +33,7 @@ public class LoginBean implements Serializable{
     private String pass;
     private String logUser;
     private String logPass;
-    static int idUser;
+    private int idUser;
     
     
     public LoginBean() {
@@ -66,26 +67,31 @@ public class LoginBean implements Serializable{
     
     public void dbConnexion(String user){
                 try {
+                    
                     connexion = DataConnect.getConnection();
                     statement = connexion.createStatement();
                     resultSet = statement.executeQuery("SELECT * FROM `User` WHERE `username` = '"+user+"'");
+                    System.out.println(resultSet);
+                    System.out.println("SELECT * FROM `User` WHERE `username` = '"+user+"'");
                     resultSet.next();
                     idUser = resultSet.getInt(1);
                     logUser =  resultSet.getString(2);
                     logPass =  resultSet.getString(3);
                     }
                 catch(Exception e){
-                    
+                    System.out.println(e.getMessage());
                 }          
     }
     
     public boolean validate() {
+        System.out.println("banane");
         dbConnexion(user);
+        
         boolean validatePass = pass.equals(logPass);
         boolean validateUser = user.equals(logUser);
         
         if(!validateUser) {
-            this.error = "This user does not exist, sign up pls";
+            this.error = "This user does not exist, sign up pls!";
         } else if(validateUser && !validatePass){
             this.error = "Wrong password for user :"+user;
         } 

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.umlv.login;
+package fr.umlv.database;
 
 /**
  *
@@ -18,7 +18,7 @@ public class DataConnect {
     public static Connection getConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/ProjetJEE", "root", "root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ProjetJEE", "root", "root");
             return con;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             System.err.println("Database.getConnection() Error -->" + ex + ex.getMessage());

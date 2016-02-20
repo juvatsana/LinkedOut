@@ -5,7 +5,7 @@
  */
 package fr.umlv.inscription;
 
-import fr.umlv.login.DataConnect;
+import fr.umlv.database.DataConnect;
 import fr.umlv.login.LoginBean;
 import java.io.Serializable;
 import java.sql.Connection;

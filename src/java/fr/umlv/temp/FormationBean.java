@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package fr.umlv.login;
+package fr.umlv.temp;
 
-import fr.umlv.cv.Formation;
+
+import fr.umlv.database.DataConnect;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -31,12 +32,9 @@ public class FormationBean implements Serializable {
     private String diploma;
     private String school;
     private String year;
-    private ArrayList<Formation> listFormations;
-    private HashMap<Integer,Formation> mapFormations;
-
+    
     public FormationBean() {
-        listFormations = new ArrayList<>();
-        mapFormations = new HashMap<>();
+      
     }
 
     /**
@@ -81,12 +79,9 @@ public class FormationBean implements Serializable {
         this.year = year;
     }
 
-    public HashMap<Integer,Formation> getList() {
-        return mapFormations;
-    }
 
-    public void saveFormation() { //TODO ajouter l'id de l'user
-        String request = "INSERT INTO Formation(diploma, school, year,fk_user) VALUES ('" + diploma + "','" + school + "'," + year + "," + LoginBean.idUser + ")";
+    public void saveFormation(String idUser) { //TODO ajouter l'id de l'user
+        String request = "INSERT INTO Formation(diploma, school, year,fk_user) VALUES ('" + diploma + "','" + school + "'," + year + "," + idUser + ")";
         try {
 
             connexion = DataConnect.getConnection();
@@ -102,8 +97,8 @@ public class FormationBean implements Serializable {
     /**
      *
      */
-    public void getFormation() {
-        String request = "SELECT * FROM Formation WHERE fk_user = " + LoginBean.idUser;
+    public void getFormation(String idUser) {
+        String request = "SELECT * FROM Formation WHERE fk_user = " + idUser;
 
         try {
             connexion = DataConnect.getConnection();
@@ -111,9 +106,11 @@ public class FormationBean implements Serializable {
             resultSet = statement.executeQuery(request);
                        
             while (resultSet.next()) {
+                /*
                 if(!mapFormations.containsKey(resultSet.getInt(1))) {
                     mapFormations.put(resultSet.getInt(1), new Formation(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4)));
                 }
+                */
             }
 
         } catch (Exception e) {

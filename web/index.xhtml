@@ -4,9 +4,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:c="http://java.sun.com/jstl/core"
->
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
     <h:head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -56,12 +54,12 @@
                                 </fieldset>
                             </h:form>
                         </div>
-                        <c:if test="${not empty loginBean.error}">
-                            <div class="alert alert-warning">
+                        
+                        <ui:fragment rendered="${not empty loginBean.error}">
+   <div class="alert alert-warning">
                                 <strong>Warning!</strong>  #{loginBean.error}
                             </div>
-                        </c:if>
-                        
+</ui:fragment>
                     </div>
                 </div>
             </div>

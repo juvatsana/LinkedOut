@@ -104,9 +104,9 @@
     </managed-bean>
         <managed-bean>
         <managed-bean-name>formationBean</managed-bean-name>
-        <managed-bean-class>fr.umlv.login.FormationBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-class>fr.umlv.temp.FormationBean</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
      <managed-bean>
         <managed-bean-name>experienceBean</managed-bean-name>
         <managed-bean-class>fr.umlv.login.ExperienceBean</managed-bean-class>
