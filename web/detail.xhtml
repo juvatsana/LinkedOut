@@ -19,6 +19,7 @@ and open the template in the editor.
         </f:metadata>
     </head>
     <body>
+        <!-- exemple pour verfiier comment retrouver les donné -->
         #{cvBean.cv.idCv}
         <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
             <h1>#{item.diploma} </h1>

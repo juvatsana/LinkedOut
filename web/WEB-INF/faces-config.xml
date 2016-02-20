@@ -8,7 +8,7 @@
         <navigation-case>
             <from-action>#{loginBean.validate}</from-action>
             <from-outcome>true</from-outcome>
-            <to-view-id>/formation.xhtml</to-view-id>
+            <to-view-id>/detail.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -97,19 +97,11 @@
         </navigation-case>
     </navigation-rule>
     
+    
     <managed-bean>
-        <managed-bean-name>loginBean</managed-bean-name>
-        <managed-bean-class>fr.umlv.login.LoginBean</managed-bean-class>
-        <managed-bean-scope>request</managed-bean-scope>
-    </managed-bean>
-        <managed-bean>
         <managed-bean-name>formationBean</managed-bean-name>
         <managed-bean-class>fr.umlv.temp.FormationBean</managed-bean-class>
-    
-        <managed-bean-scope>request</managed-bean-scope></managed-bean>
-     <managed-bean>
-        <managed-bean-name>experienceBean</managed-bean-name>
-        <managed-bean-class>fr.umlv.login.ExperienceBean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
+    
 </faces-config>
