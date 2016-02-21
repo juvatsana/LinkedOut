@@ -63,11 +63,12 @@
             <div class="container">
                 <div class="box">
                     <div class="center">
-                        <h2>Profile</h2>
+                        <h2 class="text-primary">Profile</h2>
                         <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
                     <div class="gap"></div>
                     <div class="row center">
+                        
                         <div class="col-md-6">
                             <p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p>
                         </div>
@@ -83,11 +84,7 @@
                         <div class="col-md-6">
                             <p> Adresse : #{cvBean.cv.idUser.adresse}</p>
                         </div>
-                        
-
-
                     </div><!--row-->
-
                 </div><!--/.box-->
             </div><!--/.container-->
         </section><!--/#profile-->
@@ -96,37 +93,32 @@
             <div class="container">
                 <div class="box">
                     <div class="center">
-                        <h2>Formation</h2>
-                        <p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>
+                        <h2 class="text-primary">Formation</h2>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
-                    <div class="big-gap"></div>
+                    <div class="gap"></div>
                     <div class="row">
-
-                        <div class="col-lg-2 col-lg-offset-1">
-                            <h5>EDUCATION</h5>
-                        </div>
-                        <div class="col-lg-6">
-                            <p><t>Master of Web Design</t><br/>
-                                St. Patrick University <br/>
-                                <i>3 Years Course</i>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><sm>GRADUATING IN MAY 2014</sm><br/>
-                                <imp><sm>IN PROGRESS</sm></imp>
-                            </p>
-                        </div>
-
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <p><t>Degree of Web Developer</t><br/>
-                                Hastings University <br/>
-                                <i>2 Years Course</i>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><sm>JUNE 2012</sm></p>
-                        </div>
-
+                        <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
+                            <ui:fragment rendered="#{item.public1 == true}">
+                                <div class="col-lg-6 col-lg-offset-2">
+                                    <p><t>#{item.diploma}</t><br/>
+                                        #{item.school} <br/>
+                                        
+                                       
+                                        <ui:fragment rendered="#{not empty item.dateEnd}">
+                                            
+                                            <i>#{cvBean.getTimeDifference({item.dateEnd},{item.dateStart})}</i>
+                                        </ui:fragment>
+                                        
+                                    </p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p><sm>GRADUATING IN #{item.dateEnd}</sm><br/>
+                                        <!--<imp><sm>IN PROGRESS</sm></imp>-->
+                                    </p>
+                                </div>
+                            </ui:fragment>
+                        </ui:repeat>
                     </div><!--/.row -->
                 </div><!--/.box-->
             </div><!--/.container-->
@@ -135,7 +127,7 @@
             <div class="container">
                 <div class="box">
                     <div class="center">
-                        <h2>Experience</h2>
+                        <h2 class="text-primary">Experience</h2>
                         <p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>
                     </div><!--/.center-->   
                     <div class="big-gap"></div>
@@ -174,7 +166,7 @@
             <div class="container">
                 <div class="box">
                     <div class="center">
-                        <h2>Skill</h2>
+                        <h2 class="text-primary">Skill</h2>
                         <p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>
                     </div><!--/.center-->   
                     <div class="big-gap"></div>
@@ -324,7 +316,7 @@
             <div class="container">
                 <div class="box">
                     <div class="center">
-                        <h2>Vos contact</h2>
+                        <h2 class="text-primary">Vos contacts</h2>
                         <!-- <p class="lead">Pellentesque habitant morbi tristique senectus et netus et<br>malesuada fames ac turpis egestas.</p> -->
                     </div>
                     <!-- <div class="gap"></div> -->
@@ -409,7 +401,7 @@
                 <div class="box last">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h1>Contact Form</h1>
+                            <h1 class="text-primary">Contact Form</h1>
                             <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
                             <div class="status alert alert-success" style="display: none"></div>
                             <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">

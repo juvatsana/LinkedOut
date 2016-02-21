@@ -6,6 +6,7 @@
 package fr.umlv.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -32,7 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Formation.findByIdFormation", query = "SELECT f FROM Formation f WHERE f.idFormation = :idFormation"),
     @NamedQuery(name = "Formation.findByDiploma", query = "SELECT f FROM Formation f WHERE f.diploma = :diploma"),
     @NamedQuery(name = "Formation.findBySchool", query = "SELECT f FROM Formation f WHERE f.school = :school"),
-    @NamedQuery(name = "Formation.findByYear", query = "SELECT f FROM Formation f WHERE f.year = :year"),
+    @NamedQuery(name = "Formation.findByDateStart", query = "SELECT f FROM Formation f WHERE f.dateStart = :dateStart"),
+    @NamedQuery(name = "Formation.findByDateEnd", query = "SELECT f FROM Formation f WHERE f.dateEnd = :dateEnd"),
     @NamedQuery(name = "Formation.findByPublic1", query = "SELECT f FROM Formation f WHERE f.public1 = :public1")})
 public class Formation implements Serializable {
 
@@ -48,8 +52,12 @@ public class Formation implements Serializable {
     @Size(max = 25)
     @Column(name = "school")
     private String school;
-    @Column(name = "year")
-    private Integer year;
+    @Column(name = "date_start")
+    @Temporal(TemporalType.DATE)
+    private Date dateStart;
+    @Column(name = "date_end")
+    @Temporal(TemporalType.DATE)
+    private Date dateEnd;
     @Column(name = "public")
     private Boolean public1;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
@@ -87,12 +95,20 @@ public class Formation implements Serializable {
         this.school = school;
     }
 
-    public Integer getYear() {
-        return year;
+    public Date getDateStart() {
+        return dateStart;
     }
 
-    public void setYear(Integer year) {
-        this.year = year;
+    public void setDateStart(Date dateStart) {
+        this.dateStart = dateStart;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public Boolean getPublic1() {
