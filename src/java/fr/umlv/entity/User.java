@@ -68,8 +68,9 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "age")
     private int age;
+    @Size(min = 1, max = 10)
     @Column(name = "telephone")
-    private Integer telephone;
+    private String telephone;
     @Size(max = 25)
     @Column(name = "adresse")
     private String adresse;
@@ -138,11 +139,11 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

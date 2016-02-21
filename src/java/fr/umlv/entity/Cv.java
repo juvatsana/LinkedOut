@@ -22,6 +22,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -32,7 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cv.findAll", query = "SELECT c FROM Cv c"),
-    @NamedQuery(name = "Cv.findByIdCv", query = "SELECT c FROM Cv c WHERE c.idCv = :idCv")})
+    @NamedQuery(name = "Cv.findByIdCv", query = "SELECT c FROM Cv c WHERE c.idCv = :idCv"),
+    @NamedQuery(name = "Cv.findByTitle", query = "SELECT c FROM Cv c WHERE c.title = :title")})
 public class Cv implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,6 +43,9 @@ public class Cv implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_cv")
     private Integer idCv;
+    @Size(max = 100)
+    @Column(name = "title")
+    private String title;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCv")
     private Collection<Interest> interestCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCv")
@@ -68,6 +73,14 @@ public class Cv implements Serializable {
 
     public void setIdCv(Integer idCv) {
         this.idCv = idCv;
+    }
+    
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
