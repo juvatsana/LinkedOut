@@ -101,21 +101,25 @@
                         <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
                             <ui:fragment rendered="#{item.public1 == true}">
                                 <div class="col-lg-6 col-lg-offset-2">
-                                    <p><t>#{item.diploma}</t><br/>
-                                        #{item.school} <br/>
-                                        
-                                       
+                                    <p><t class="text-primary">#{item.diploma}</t><br/>
+                                        <t class ="text-danger">#{item.school}</t> <br/>
                                         <ui:fragment rendered="#{not empty item.dateEnd}">
-                                            
-                                            <i>#{cvBean.getTimeDifference({item.dateEnd},{item.dateStart})}</i>
+                                            <i class="text-warning">#{cvBean.getTimeDifference({item.dateEnd},{item.dateStart})}</i>
                                         </ui:fragment>
-                                        
+                                        <ui:fragment rendered="#{empty item.dateEnd}">
+                                            <i class="text-warning">#{cvBean.getTimeDifferenceSinceNow({item.dateStart})}</i>
+                                        </ui:fragment>
                                     </p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <p><sm>GRADUATING IN #{item.dateEnd}</sm><br/>
-                                        <!--<imp><sm>IN PROGRESS</sm></imp>-->
-                                    </p>
+                                    <ui:fragment rendered="#{not empty item.dateEnd}">
+                                        <p><sm>GRADUATING IN #{cvBean.getFormatedDate({item.dateEnd})}</sm></p><br/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{empty item.dateEnd}">
+                                        <p><sm>PROGRESSING SINCE #{cvBean.getFormatedDate({item.dateStart})}</sm></p><br/>
+
+                                    </ui:fragment>
+                                     
                                 </div>
                             </ui:fragment>
                         </ui:repeat>
