@@ -218,72 +218,53 @@
                         <h2 class="text-primary">Vos contacts</h2>
                         <!-- <p class="lead">Pellentesque habitant morbi tristique senectus et netus et<br>malesuada fames ac turpis egestas.</p> -->
                     </div>
-                    <!-- <div class="gap"></div> -->
+                    <div class="gap"></div> 
                     <div id="team-scroller" class="carousel scale">
                         <div class="carousel-inner">
                             <div class="item active">
                                 <div class="row">
                                     <div class="col-sm-2">
                                         <div class="member">
-                                            <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/homme.jpg" alt="" /></p>
-                                            <h3>Donald Ford<small class="designation">Senior Vice President</small></h3>
+
                                         </div>
-                                    </div>    
-                                    <div class="col-sm-3">
-                                        <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/homme.jpg" alt="" /></p>
-                                                <h3>Donald Ford<small class="designation">Senior Vice President</small></h3>
-                                            </a>  
-                                        </div>
-                                    </div>    
-                                    <div class="col-sm-3">
-                                        <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/homme.jpg" alt="" /></p>
-                                                <h3>Donald Ford<small class="designation">Senior Vice President</small></h3>
-                                            </a>
-                                        </div>
-                                    </div>        
-                                    <div class="col-sm-3">
-                                        <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/femme.jpg" alt="" /></p>
-                                                <h3>Karen Richardson<small class="designation">Assitant Vice President</small></h3>
-                                            </a>  
-                                        </div>
-                                    </div>
+                                    </div> 
+
+                                    <ui:repeat value="#{cvBean.hashFriends['Active']}" var="friend">
+                                        <div class="col-sm-3">
+                                            <div class="member">
+
+                                                <a class="preview " href="#" >
+                                                    <p><img class="img-responsive img-thumbnail img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
+                                                    <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.username}</small></h3>
+                                                </a>  
+                                            </div>
+                                        </div> 
+                                    </ui:repeat>
                                 </div>
                             </div>
                             <div class="item">
-                                <div class="row">
-                                    <div class="col-sm-3">
+                                <div class="row">    
+                                    <div class="col-sm-2">
                                         <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/femme.jpg" alt="" /></p>
-                                                <h3>Karen Richardson<small class="designation">As Vice President</small></h3>
-                                            </a>  
+
                                         </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/femme.jpg" alt="" /></p>
-                                                <h3>Karen Richardson<small class="designation">Assitant President</small></h3>
-                                            </a>  
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="member">
-                                            <a class="preview " href="#" >
-                                                <p><img class="img-responsive img-thumbnail img-circle" src="ressources/img/femme.jpg" alt="" /></p>
-                                                <h3>Karen Richardson<small class="designation">Developper</small></h3>
-                                            </a>  
-                                        </div>
-                                    </div>
+                                    </div>  
+                                    <ui:repeat value="#{cvBean.hashFriends['Reserve']}" var="friend">
+                                        <div class="col-sm-3">
+                                            <div class="member">
+
+                                                <a class="preview " href="#" >
+                                                    <p><img class="img-responsive img-thumbnail img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
+                                                    <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.surname}</small></h3>
+                                                </a>  
+                                            </div>
+                                        </div> 
+                                    </ui:repeat>
+
                                 </div>
                             </div>
                         </div>
+
                         <a class="left-arrow" href="#team-scroller" data-slide="prev">
                             <i class="fa fa-angle-double-left" style="font-size:36px"></i>
                         </a>

@@ -6,18 +6,24 @@
 package fr.umlv.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -54,26 +60,33 @@ public class User implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "password")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(max = 30)
     @Column(name = "firstname")
     private String firstname;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 30)
+    @Size(max = 30)
     @Column(name = "surname")
     private String surname;
     @Basic(optional = false)
     @NotNull
     @Column(name = "age")
     private int age;
-    @Size(min = 1, max = 10)
     @Column(name = "telephone")
-    private String telephone;
+    private Integer telephone;
     @Size(max = 25)
     @Column(name = "adresse")
     private String adresse;
+    @Size(max = 1)
+    @Column(name = "sexe")
+    private String sexe;
+    @JoinTable(name = "friend", joinColumns = {
+        @JoinColumn(name = "id_user", referencedColumnName = "id_user")}, inverseJoinColumns = {
+        @JoinColumn(name = "id_user_User", referencedColumnName = "id_user")})
+    @ManyToMany
+    private Collection<User> userCollection;
+    @ManyToMany(mappedBy = "userCollection")
+    private Collection<User> userCollection1;
+    @OneToMany(mappedBy = "idUser")
+    private Collection<Cv> cvCollection;
 
     public User() {
     }
@@ -82,12 +95,10 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String username, String password, String firstname, String surname, int age) {
+    public User(Integer idUser, String username, String password, int age) {
         this.idUser = idUser;
         this.username = username;
         this.password = password;
-        this.firstname = firstname;
-        this.surname = surname;
         this.age = age;
     }
 
@@ -107,7 +118,6 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    /*
     public String getPassword() {
         return password;
     }
@@ -115,7 +125,7 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    */
+
     public String getFirstname() {
         return firstname;
     }
@@ -140,11 +150,11 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public String getTelephone() {
+    public Integer getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(String telephone) {
+    public void setTelephone(Integer telephone) {
         this.telephone = telephone;
     }
 
@@ -154,6 +164,41 @@ public class User implements Serializable {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    @XmlTransient
+    public Collection<User> getUserCollection() {
+        return userCollection;
+    }
+
+    public void setUserCollection(Collection<User> userCollection) {
+        this.userCollection = userCollection;
+    }
+
+    @XmlTransient
+    public Collection<User> getUserCollection1() {
+        return userCollection1;
+    }
+
+    public void setUserCollection1(Collection<User> userCollection1) {
+        this.userCollection1 = userCollection1;
+    }
+
+    @XmlTransient
+    public Collection<Cv> getCvCollection() {
+        return cvCollection;
+    }
+
+    public void setCvCollection(Collection<Cv> cvCollection) {
+        this.cvCollection = cvCollection;
     }
 
     @Override
@@ -178,7 +223,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.umlv.entity.User[ idUser=" + idUser + " ]";
+        return "fr.umlv.database.User[ idUser=" + idUser + " ]";
     }
     
 }

@@ -7,7 +7,9 @@ package fr.umlv.bean;
 
 import fr.umlv.entity.Cv;
 import fr.umlv.entity.Skill;
+import fr.umlv.entity.User;
 import fr.umlv.session.CvFacade;
+import fr.umlv.session.UserFacade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,6 @@ import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
 
 /**
  *
@@ -33,11 +32,16 @@ public class CvBean {
     
     @EJB
     private CvFacade cvf;
+    @EJB
+    private UserFacade userf;
+    
     private Cv cv;
+    private User user;
     
   
     public void init(HashSet hashId) {
         cv = cvf.find(hashId.iterator().next());
+        user = userf.find(hashId.iterator().next());
     }
 
     public Cv getCv() {
@@ -46,6 +50,14 @@ public class CvBean {
 
     public void setCv(Cv cv) {
         this.cv = cv;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
@@ -99,6 +111,28 @@ public class CvBean {
                 result.put(s.getField(), list);
             }
             list.add(s);
+        }
+        System.out.println(result);
+        return result;
+    }
+    
+    public HashMap<String, List<User>> getHashFriends() {
+        Collection<User> friends =  user.getUserCollection();    
+        HashMap<String, List<User>> result = new HashMap<>();
+        int i = 0;
+        List<User> lActive = new ArrayList<>();
+        List<User> lReserve = new ArrayList<>();
+        result.put("Active",lActive);
+        result.put("Reserve",lReserve);
+        for (User u: friends) {
+            
+            if (i<3) {
+                List<User> list = result.get("Active");
+                list.add(u);
+            } else {
+                List<User> list = result.get("Reserve");
+                list.add(u);
+            }
         }
         System.out.println(result);
         return result;
