@@ -4,7 +4,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <head>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -98,25 +99,25 @@
                     </div><!--/.center-->   
                     <div class="gap"></div>
                     <div class="row">
-                        <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
-                            <ui:fragment rendered="#{item.public1 == true}">
+                        <ui:repeat value="#{cvBean.cv.formationCollection}" var="itemF">
+                            <ui:fragment rendered="#{itemF.public1 == true}">
                                 <div class="col-lg-4 col-lg-offset-3">
-                                    <p><t class="text-primary">#{item.diploma}</t><br/>
-                                        <t class ="text-danger">#{item.school}</t> <br/>
-                                        <ui:fragment rendered="#{not empty item.dateEnd}">
-                                            <i class="text-warning">#{cvBean.getTimeDifference({item.dateEnd},{item.dateStart})}</i>
+                                    <p><t class="text-primary">#{itemF.diploma}</t><br/>
+                                        <t class ="text-danger">#{itemF.school}</t> <br/>
+                                        <ui:fragment rendered="#{not empty itemF.dateEnd}">
+                                            <i class="text-warning">#{cvBean.getTimeDifference({itemF.dateEnd},{itemF.dateStart})}</i>
                                         </ui:fragment>
                                         <ui:fragment rendered="#{empty item.dateEnd}">
-                                            <i class="text-warning">#{cvBean.getTimeDifferenceSinceNow({item.dateStart})}</i>
+                                            <i class="text-warning">#{cvBean.getTimeDifferenceSinceNow({itemF.dateStart})}</i>
                                         </ui:fragment>
                                     </p>
                                 </div>
                                 <div class="col-lg-3">
-                                    <ui:fragment rendered="#{not empty item.dateEnd}">
-                                        <p><sm>GRADUATING IN #{cvBean.getFormatedDate({item.dateEnd})}</sm></p><br/>
+                                    <ui:fragment rendered="#{not empty itemF.dateEnd}">
+                                        <p><sm>GRADUATING IN #{cvBean.getFormatedDate({itemF.dateEnd})}</sm></p><br/>
                                     </ui:fragment>
-                                    <ui:fragment rendered="#{empty item.dateEnd}">
-                                        <p><sm>PROGRESSING SINCE #{cvBean.getFormatedDate({item.dateStart})}</sm></p><br/>
+                                    <ui:fragment rendered="#{empty itemF.dateEnd}">
+                                        <p><sm>PROGRESSING SINCE #{cvBean.getFormatedDate({itemF.dateStart})}</sm></p><br/>
 
                                     </ui:fragment>
 
@@ -162,7 +163,7 @@
                                     </ui:fragment>
 
                                 </div>
-                                
+
                             </ui:fragment>
                         </ui:repeat>
 
@@ -175,149 +176,39 @@
                 <div class="box">
                     <div class="center">
                         <h2 class="text-primary">Skill</h2>
-                        <p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
-                    <div class="big-gap"></div>
-                    <div class="row">
-                        <div class="col-lg-2 col-lg-offset-1">
-                            <h5>Informatique</h5>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="javascript" height="130" width="130"></canvas>
-                            <p>Javascript</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 70,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 30,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("javascript").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="bootstrap" height="130" width="130"></canvas>
-                            <p>Bootstrap</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 90,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 10,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("bootstrap").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="wordpress" height="130" width="130"></canvas>
-                            <p>Wordpress</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 65,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 35,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("wordpress").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
+                    <div class="gap"></div>
+                    <c:forEach items="#{cvBean.classedSkill}" var="entry">
+                        <div class="row">
+                            <div class="col-lg-2 col-lg-offset-1">
+                                <h5>#{entry.key}</h5>
+                            </div>
+                            <ui:repeat value="#{entry.value}" var="experience" varStatus="loop">
 
-                        <div class="col-lg-3 col-lg-offset-3 centered">
-                            <canvas id="html" height="130" width="130"></canvas>
-                            <p>HTML/CSS</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 80,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 20,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("html").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="photoshop" height="130" width="130"></canvas>
-                            <p>Photoshop</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 70,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 30,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("photoshop").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="illustrator" height="130" width="130"></canvas>
-                            <p>Illustrator</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 50,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 50,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("illustrator").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-                        <div class="col-lg-2 col-lg-offset-1">
-                            <h5>Gestion de projet</h5>
-                        </div>
-                        <div class="col-lg-3 centered">
-                            <canvas id="gestion" height="130" width="130"></canvas>
-                            <p>Gestion</p>
-                            <br/>
-                            <script>
-                                var doughnutData = [
-                                    {
-                                        value: 70,
-                                        color: "#1abc9c"
-                                    },
-                                    {
-                                        value: 30,
-                                        color: "#ecf0f1"
-                                    }
-                                ];
-                                var myDoughnut = new Chart(document.getElementById("gestion").getContext("2d")).Doughnut(doughnutData);
-                            </script>
-                        </div>
-
-
-                    </div><!--/.row -->
+                                <div class="#{loop.index % 3 != 0 or loop.index==0 ? 'col-lg-3 centered' : 'col-lg-3 col-lg-offset-3 centered'}">
+                                    <canvas id="#{experience.name}" height="130" width="130"></canvas>
+                                    <p>#{experience.name}</p>
+                                    <script>
+                                        var doughnutData = [
+                                            {
+                                                value: #{experience.level},
+                                                color: "#0080ff"
+                                            },
+                                            {
+                                                value: 100 - #{experience.level},
+                                                color: "#ecf0f1"
+                                            }
+                                        ];
+                                        var myDoughnut = new Chart(document.getElementById("#{experience.name}").getContext("2d")).Doughnut(doughnutData);
+                                    </script>
+                                </div>
+                            </ui:repeat>
+                        </div><!--/.row --> 
+                    </c:forEach>
                 </div><!--/.box-->
             </div><!--/.container-->
-        </section><!--/#s-->
+        </section><!--/#skill-->
 
 
         <section id="friend">

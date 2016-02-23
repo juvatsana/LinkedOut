@@ -6,14 +6,20 @@
 package fr.umlv.bean;
 
 import fr.umlv.entity.Cv;
+import fr.umlv.entity.Skill;
 import fr.umlv.session.CvFacade;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashSet;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 
@@ -28,7 +34,8 @@ public class CvBean {
     @EJB
     private CvFacade cvf;
     private Cv cv;
-
+    
+  
     public void init(HashSet hashId) {
         cv = cvf.find(hashId.iterator().next());
     }
@@ -80,5 +87,20 @@ public class CvBean {
        Date date = (Date) hashdate.iterator().next();
        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy");
        return formater.format(date);
+    }
+    
+    public HashMap<String, List<Skill>> getClassedSkill() {
+        Collection<Skill> skills =  cv.getSkillCollection();    
+        HashMap<String, List<Skill>> result = new HashMap<>();
+        for (Skill s: skills) {
+            List<Skill> list = result.get(s.getField());
+            if (list == null) {
+                list = new ArrayList<>();
+                result.put(s.getField(), list);
+            }
+            list.add(s);
+        }
+        System.out.println(result);
+        return result;
     }
 }

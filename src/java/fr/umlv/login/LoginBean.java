@@ -92,7 +92,6 @@ public class LoginBean implements Serializable{
     }
     
     public boolean validate() {
-        System.out.println("banane");
         dbConnexion(user);
         
         boolean validatePass = pass.equals(logPass);
@@ -105,8 +104,5 @@ public class LoginBean implements Serializable{
         } 
         return validateUser && validatePass;
     }
-    
-    public String go(){
-        return "experience";
-    }
+
 }
