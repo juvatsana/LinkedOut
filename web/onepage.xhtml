@@ -68,7 +68,7 @@
                     </div><!--/.center-->   
                     <div class="gap"></div>
                     <div class="row center">
-                        
+
                         <div class="col-md-6">
                             <p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p>
                         </div>
@@ -100,7 +100,7 @@
                     <div class="row">
                         <ui:repeat value="#{cvBean.cv.formationCollection}" var="item">
                             <ui:fragment rendered="#{item.public1 == true}">
-                                <div class="col-lg-6 col-lg-offset-2">
+                                <div class="col-lg-4 col-lg-offset-3">
                                     <p><t class="text-primary">#{item.diploma}</t><br/>
                                         <t class ="text-danger">#{item.school}</t> <br/>
                                         <ui:fragment rendered="#{not empty item.dateEnd}">
@@ -119,7 +119,7 @@
                                         <p><sm>PROGRESSING SINCE #{cvBean.getFormatedDate({item.dateStart})}</sm></p><br/>
 
                                     </ui:fragment>
-                                     
+
                                 </div>
                             </ui:fragment>
                         </ui:repeat>
@@ -132,35 +132,39 @@
                 <div class="box">
                     <div class="center">
                         <h2 class="text-primary">Experience</h2>
-                        <p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
-                    <div class="big-gap"></div>
+                    <div class="gap"></div>
                     <div class="row">
 
-                        <div class="col-lg-2 col-lg-offset-1">
-                            <h5>EDUCATION</h5>
-                        </div>
-                        <div class="col-lg-6">
-                            <p><t>Master of Web Design</t><br/>
-                                St. Patrick University <br/>
-                                <i>3 Years Course</i>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><sm>GRADUATING IN MAY 2014</sm><br/>
-                                <imp><sm>IN PROGRESS</sm></imp>
-                            </p>
-                        </div>
+                        <ui:repeat value="#{cvBean.cv.experienceCollection}" var="item">
+                            <ui:fragment rendered="#{item.public1 == true}">
+                                <div class="col-lg-2 col-lg-offset-2 text-primary">
+                                    #{item.enterprise}
+                                </div>
+                                <div class="col-lg-5">
+                                    #{item.contractType}
+                                    <br></br>
+                                    #{item.occupation}
+                                    <br></br>
+                                    <blockquote>
+                                        #{item.description}
+                                    </blockquote>
 
-                        <div class="col-lg-6 col-lg-offset-3">
-                            <p><t>Degree of Web Developer</t><br/>
-                                Hastings University <br/>
-                                <i>2 Years Course</i>
-                            </p>
-                        </div>
-                        <div class="col-lg-3">
-                            <p><sm>JUNE 2012</sm></p>
-                        </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ui:fragment rendered="#{not empty item.dateEnd}">
+                                        <p><sm>#{cvBean.getFormatedDate({item.dateStart})} - #{cvBean.getFormatedDate({item.dateEnd})}</sm><br></br><sm> (#{cvBean.getTimeDifference({item.dateEnd},{item.dateStart})})</sm></p><br/>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{empty item.dateEnd}">
+                                        <p><sm>#{cvBean.getFormatedDate({item.dateStart})} - PROGRESSING</sm><br></br><sm>( #{cvBean.getTimeDifferenceSinceNow({item.dateStart})} )</sm></p><br/>
+
+                                    </ui:fragment>
+
+                                </div>
+                                
+                            </ui:fragment>
+                        </ui:repeat>
 
                     </div><!--/.row -->
                 </div><!--/.box-->

@@ -7,6 +7,7 @@ package fr.umlv.bean;
 
 import fr.umlv.entity.Cv;
 import fr.umlv.session.CvFacade;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashSet;
 import javax.ejb.EJB;
@@ -43,7 +44,7 @@ public class CvBean {
     public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
        Date date2 = (Date) hashdate2.iterator().next();
        Date date1 = (Date) hashdate1.iterator().next();
-       long difference = date2.getTime() - date1.getTime();
+       long difference = date1.getTime() - date2.getTime();
       
        Calendar c = Calendar.getInstance(); 
        //Set time in milliseconds
@@ -52,10 +53,32 @@ public class CvBean {
        System.out.println(date1);
        System.out.println(date2);
        
-       int mYear = c.get(Calendar.YEAR);
+       int mYear = c.get(Calendar.YEAR)-1970;
        int mMonth = c.get(Calendar.MONTH); 
      
        return Integer.toString(mYear) + " years and " + Integer.toString(mMonth)+ " months";
        
+    }
+    
+    public String getTimeDifferenceSinceNow(HashSet hashdate) {
+       Date date = (Date) hashdate.iterator().next();
+       long difference = System.currentTimeMillis()-date.getTime();
+      
+       Calendar c = Calendar.getInstance(); 
+       //Set time in milliseconds
+       c.setTimeInMillis(difference);
+       System.out.println(difference);
+       
+       int mYear = c.get(Calendar.YEAR)-1970;
+       int mMonth = c.get(Calendar.MONTH); 
+     
+       return Integer.toString(mYear) + " years and " + Integer.toString(mMonth)+ " months";
+       
+    }
+    
+    public String getFormatedDate(HashSet hashdate) {
+       Date date = (Date) hashdate.iterator().next();
+       SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy");
+       return formater.format(date);
     }
 }
