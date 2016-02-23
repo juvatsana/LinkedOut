@@ -19,8 +19,10 @@
         <link rel="shortcut icon" href="ressources/img/ico/favicon.ico"/>
         <script src="ressources/js/Chart.js"></script>
         <f:metadata>
-            <f:viewAction action="#{cvBean.init({loginBean.idUser})}" />
+            <f:viewParam name="userId" value="#{cvBean.userId}" converter="javax.faces.Integer" />
+            <f:viewAction action="#{cvBean.init}" />
         </f:metadata>
+        
     </head><!--/head-->
 
     <body data-spy="scroll" data-target="#navbar" data-offset="0">
@@ -233,8 +235,8 @@
                                         <div class="col-sm-3">
                                             <div class="member">
 
-                                                <a class="preview " href="#" >
-                                                    <p><img class="img-responsive img-thumbnail img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
+                                                <a class="" href="onepage.xhtml?userId=#{friend.idUser}" >
+                                                    <p><img class=" img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
                                                     <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.username}</small></h3>
                                                 </a>  
                                             </div>
@@ -253,7 +255,7 @@
                                         <div class="col-sm-3">
                                             <div class="member">
 
-                                                <a class="preview " href="#" >
+                                                <a class="preview " href="onepage.xhtml?userId=#{friend.id_user}" >
                                                     <p><img class="img-responsive img-thumbnail img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
                                                     <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.surname}</small></h3>
                                                 </a>  

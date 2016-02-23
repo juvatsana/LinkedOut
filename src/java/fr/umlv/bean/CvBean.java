@@ -17,18 +17,22 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashSet;
 import javax.ejb.EJB;
-import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Date;
 import java.util.HashMap;
+import javax.faces.bean.ManagedProperty;
 
 /**
  *
  * @author Mourougan
  */
 @ManagedBean(name = "cvBean")
-@ApplicationScoped
+@SessionScoped
 public class CvBean {
+    
+  
+    private int userId;
     
     @EJB
     private CvFacade cvf;
@@ -37,13 +41,17 @@ public class CvBean {
     
     private Cv cv;
     private User user;
-    
-  
-    public void init(HashSet hashId) {
-        cv = cvf.find(hashId.iterator().next());
-        user = userf.find(hashId.iterator().next());
+
+    public int getUserId() {
+        return userId;
     }
 
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    
+ 
     public Cv getCv() {
         return cv;
     }
@@ -60,6 +68,12 @@ public class CvBean {
         this.user = user;
     }
     
+     public void init() {
+        user = userf.find(new Integer(userId));
+        cv = cvf.getCvId(new Integer(userId));
+       
+        
+    }
     public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
        Date date2 = (Date) hashdate2.iterator().next();
        Date date1 = (Date) hashdate1.iterator().next();
