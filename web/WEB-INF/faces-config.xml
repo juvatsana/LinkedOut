@@ -116,5 +116,10 @@
         <managed-bean-class>fr.umlv.bean</managed-bean-class>
         <managed-bean-scope>request</managed-bean-scope>
     </managed-bean>
-    
+    <navigation-rule>
+        <from-view-id>/onepage.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/research.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>
