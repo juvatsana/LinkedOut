@@ -41,6 +41,7 @@ public class CvBean {
     
     private Cv cv;
     private User user;
+    private Collection<Cv> allCv;
 
     public int getUserId() {
         return userId;
@@ -50,7 +51,9 @@ public class CvBean {
         this.userId = userId;
     }
 
-    
+    public Collection<Cv> getAllCv(){
+        return allCv;
+    }
  
     public Cv getCv() {
         return cv;
@@ -71,9 +74,9 @@ public class CvBean {
      public void init() {
         user = userf.find(new Integer(userId));
         cv = cvf.getCvId(new Integer(userId));
-       
-        
+        allCv = cvf.getAllCv();
     }
+     
     public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
        Date date2 = (Date) hashdate2.iterator().next();
        Date date1 = (Date) hashdate1.iterator().next();
@@ -150,5 +153,9 @@ public class CvBean {
         }
         System.out.println(result);
         return result;
+    }
+    
+    public User findUserById(int id){
+        return userf.find(id);
     }
 }

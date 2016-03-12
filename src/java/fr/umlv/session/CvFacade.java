@@ -6,6 +6,7 @@
 package fr.umlv.session;
 
 import fr.umlv.entity.Cv;
+import java.util.Collection;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -39,4 +40,14 @@ public class CvFacade extends AbstractFacade<Cv> {
         System.out.println("\n--------------------------------\n\n\n");
         return (Cv) q.getSingleResult();
     }
+    
+    public Collection<Cv> getAllCv() {
+        Query q = em.createQuery("SELECT c FROM Cv c");
+        System.out.println("getAllCv--------------------------------\n\n\n");
+        System.out.println(q.toString());
+        System.out.println("\n--------------------------------\n\n\n");
+        System.out.println(q.getResultList());
+        return (Collection<Cv>) q.getResultList();
+    }
+
 }
