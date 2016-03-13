@@ -51,6 +51,7 @@ public class EditBean {
 
     //cv
     private Cv cv;
+    private String title;
 
     //formations
     private Collection<Formation> formations;
@@ -94,9 +95,19 @@ public class EditBean {
         cv = cvf.getCvId(userId);
         formations = cv.getFormationCollection();
         experiences = cv.getExperienceCollection();
+        title = cv.getTitle();
 
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    
     public User getU() {
         return u;
     }

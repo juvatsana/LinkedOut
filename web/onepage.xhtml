@@ -74,7 +74,7 @@
                     <div class="row center">
 
                         <div class="col-md-6">
-                            <h:outputText><p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p></h:outputText>
+                            <p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p>
                         </div>
                         <div class="col-md-6">
                             <p> E-mail : #{cvBean.cv.idUser.username}</p>
@@ -182,7 +182,7 @@
                         <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
                     <div class="gap"></div>
-                    <c:forEach items="#{cvBean.classedSkill}" var="entry">
+                    <c:forEach items="#{cvBean.organizedSkill}" var="entry">
                         <div class="row">
                             <div class="col-lg-2 col-lg-offset-1">
                                 <h5>#{entry.key}</h5>
@@ -232,7 +232,7 @@
                                         </div>
                                     </div> 
 
-                                    <ui:repeat value="#{cvBean.hashFriends['Active']}" var="friend">
+                                     <ui:repeat value="#{cvBean.organizedFriends['Active']}" var="friend">
                                         <div class="col-sm-3">
                                             <div class="member">
 
@@ -252,7 +252,7 @@
 
                                         </div>
                                     </div>  
-                                    <ui:repeat value="#{cvBean.hashFriends['Reserve']}" var="friend">
+                                     <ui:repeat value="#{cvBean.organizedFriends['Reserve']}" var="friend">
                                         <div class="col-sm-3">
                                             <div class="member">
 
