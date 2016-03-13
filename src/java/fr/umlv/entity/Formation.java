@@ -67,6 +67,24 @@ public class Formation implements Serializable {
     public Formation() {
     }
 
+    public Formation(String diploma, String school, Date dateStart, Date dateEnd, Boolean public1, Cv idCv) {
+        this.diploma = diploma;
+        this.school = school;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.public1 = public1;
+        this.idCv = idCv;
+    }
+
+    public Formation(String diploma, String school, Date dateStart, Boolean public1, Cv idCv) {
+        this.diploma = diploma;
+        this.school = school;
+        this.dateStart = dateStart;
+        this.public1 = public1;
+        this.idCv = idCv;
+    }
+
+    
     public Formation(Integer idFormation) {
         this.idFormation = idFormation;
     }

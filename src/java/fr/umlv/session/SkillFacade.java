@@ -29,4 +29,8 @@ public class SkillFacade extends AbstractFacade<Skill> {
         super(Skill.class);
     }
     
+    public void insertSkill(Skill s) {
+        em.persist(s);
+ 
+    }
 }

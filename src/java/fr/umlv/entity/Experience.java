@@ -75,6 +75,28 @@ public class Experience implements Serializable {
     public Experience() {
     }
 
+    public Experience(String contractType, String enterprise, Date dateStart, Date dateEnd, String occupation, String description, Boolean public1, Cv idCv) {
+        this.contractType = contractType;
+        this.enterprise = enterprise;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.occupation = occupation;
+        this.description = description;
+        this.public1 = public1;
+        this.idCv = idCv;
+    }
+
+    public Experience(String contractType, String enterprise, Date dateStart, String occupation, String description, Boolean public1, Cv idCv) {
+        this.contractType = contractType;
+        this.enterprise = enterprise;
+        this.dateStart = dateStart;
+        this.occupation = occupation;
+        this.description = description;
+        this.public1 = public1;
+        this.idCv = idCv;
+    }
+
+    
     public Experience(Integer idExperience) {
         this.idExperience = idExperience;
     }

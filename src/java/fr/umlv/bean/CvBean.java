@@ -10,6 +10,7 @@ import fr.umlv.entity.Skill;
 import fr.umlv.entity.User;
 import fr.umlv.session.CvFacade;
 import fr.umlv.session.UserFacade;
+import fr.umlv.session.SkillFacade;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Date;
 import java.util.HashMap;
-import javax.faces.bean.ManagedProperty;
 
 /**
  *
@@ -38,9 +38,34 @@ public class CvBean {
     private CvFacade cvf;
     @EJB
     private UserFacade userf;
+    @EJB
+    private SkillFacade skillf;
     
     private Cv cv;
     private User user;
+    
+    private HashMap<String, List<Skill>> organizedSkill = new HashMap<>();
+    private HashMap<String, List<User>> organizedFriends = new HashMap<>();
+    private List<String> listEncodedNameSkill = new ArrayList<>();
+
+    //roundValue
+    private String roundValue;
+
+    public String getRoundValue() {
+        return roundValue;
+    }
+
+    public void setRoundValue(String roundValue) {
+        this.roundValue = roundValue;
+    }
+    
+    public HashMap<String, List<Skill>> getOrganizedSkill() {
+        return organizedSkill;
+    }
+
+    public HashMap<String, List<User>> getOrganizedFriends() {
+        return organizedFriends;
+    }
 
     public int getUserId() {
         return userId;
@@ -48,9 +73,7 @@ public class CvBean {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    
+    }   
  
     public Cv getCv() {
         return cv;
@@ -69,8 +92,10 @@ public class CvBean {
     }
     
      public void init() {
-        user = userf.find(new Integer(userId));
-        cv = cvf.getCvId(new Integer(userId));
+        user = userf.find(userId);
+        cv = cvf.getCvId(userId);
+        getClassedSkill();
+        getHashFriends();
        
         
     }
@@ -82,9 +107,7 @@ public class CvBean {
        Calendar c = Calendar.getInstance(); 
        //Set time in milliseconds
        c.setTimeInMillis(difference);
-       System.out.println(difference);
-       System.out.println(date1);
-       System.out.println(date2);
+    
        
        int mYear = c.get(Calendar.YEAR)-1970;
        int mMonth = c.get(Calendar.MONTH); 
@@ -100,8 +123,6 @@ public class CvBean {
        Calendar c = Calendar.getInstance(); 
        //Set time in milliseconds
        c.setTimeInMillis(difference);
-       System.out.println(difference);
-       
        int mYear = c.get(Calendar.YEAR)-1970;
        int mMonth = c.get(Calendar.MONTH); 
      
@@ -115,40 +136,71 @@ public class CvBean {
        return formater.format(date);
     }
     
-    public HashMap<String, List<Skill>> getClassedSkill() {
+    private void getClassedSkill() {
         Collection<Skill> skills =  cv.getSkillCollection();    
-        HashMap<String, List<Skill>> result = new HashMap<>();
+        organizedSkill = new HashMap<>();
         for (Skill s: skills) {
-            List<Skill> list = result.get(s.getField());
+            List<Skill> list = organizedSkill.get(s.getField());
             if (list == null) {
                 list = new ArrayList<>();
-                result.put(s.getField(), list);
+                organizedSkill.put(s.getField(), list);
             }
             list.add(s);
         }
-        System.out.println(result);
-        return result;
+        
     }
     
-    public HashMap<String, List<User>> getHashFriends() {
+    private void getHashFriends() {
         Collection<User> friends =  user.getUserCollection();    
-        HashMap<String, List<User>> result = new HashMap<>();
+        organizedFriends = new HashMap<>();
         int i = 0;
         List<User> lActive = new ArrayList<>();
         List<User> lReserve = new ArrayList<>();
-        result.put("Active",lActive);
-        result.put("Reserve",lReserve);
+        organizedFriends.put("Active",lActive);
+        organizedFriends.put("Reserve",lReserve);
         for (User u: friends) {
-            
             if (i<3) {
-                List<User> list = result.get("Active");
+                List<User> list = organizedFriends.get("Active");
                 list.add(u);
             } else {
-                List<User> list = result.get("Reserve");
+                List<User> list = organizedFriends.get("Reserve");
                 list.add(u);
             }
         }
-        System.out.println(result);
-        return result;
+
     }
+    
+    public String deleteSkill(HashSet fieldH, HashSet nameSkillH) {
+         
+        String nameField = (String) fieldH.iterator().next();
+        List<Skill> skills = organizedSkill.get(nameField);
+     
+        String nameSkill = (String) nameSkillH.iterator().next();
+        
+        for(Skill s: skills) {
+            if(s.getName().equals(nameSkill)) {
+                skillf.remove(s);
+                return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#skill";
+            }
+        }
+        return "onepageOwner.xhtml";
+    }
+    public void editSkillLevel (HashSet fieldH, HashSet nameSkillH) {
+         
+        String nameField = (String) fieldH.iterator().next();
+        List<Skill> skills = organizedSkill.get(nameField);
+     
+        String nameSkill = (String) nameSkillH.iterator().next();
+        
+        for(Skill s: skills) {
+            if(s.getName().equals(nameSkill)) {
+                
+                s.setLevel(roundValue);
+                skillf.edit(s);
+               
+            }
+        }
+       
+    }
+   
 }

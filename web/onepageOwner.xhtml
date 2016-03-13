@@ -1,0 +1,546 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content="Peroumalle"/>
+        <title>LinkedOut</title>
+
+        <link rel="stylesheet" href="ressources/noUiSlider/nouislider.css" />
+        <script src="ressources/js/jquery-1.11.3.min.js"></script>
+        <script src="ressources/noUiSlider/nouislider.js"></script>
+
+        <link rel="stylesheet" href="ressources/css/roundslider.css" />
+        <script src="ressources/js/roundslider.js"></script>
+
+        <link href="ressources/css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="ressources/js/bootstrap.min.js"/>
+        <link href="ressources/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="ressources/css/prettyPhoto.css" rel="stylesheet"/>
+        <link href="ressources/css/main.css" rel="stylesheet"/>
+        <link rel="shortcut icon" href="ressources/img/ico/favicon.ico"/>
+        <script src="ressources/js/Chart.js"></script>
+
+
+        <script>
+            function escapeRegExp(str) {
+                return str.replace(/\+/g, "p").replace(/\#/g, "p").replace(/\-/g, "p").replace(/\_/g, "p").replace(/ /g, "_");
+            }
+            ;
+        </script>
+    </head><!--/head-->
+
+    <body data-spy="scroll" data-target="#navbar" data-offset="0">
+        <f:metadata>
+            <f:viewParam name="userId" value="#{cvBean.userId}" converter="javax.faces.Integer" />
+            <f:viewAction action="#{cvBean.init}" />
+            <f:viewAction action="#{editBean.initUserId({loginBean.idUser})}" />      
+            <f:viewAction action="#{editBean.initEditBean}" />
+        </f:metadata>
+        <header id="header" role="banner">
+            <div class="container">
+                <div id="navbar" class="navbar navbar-default">
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#headerwrap"><i class="glyphicon glyphicon-home"></i></a></li>
+                            <li><a href="#profile">Profile</a></li>
+                            <li><a href="#formation">Formation</a></li>
+                            <li><a href="#experience">Experience</a></li>
+                            <li><a href="#skill">Skill</a></li>                          
+                            <li><a href="#friend">Friend</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                            <li>
+                                <a>
+                                    <input type="text" class="search-query input-xsmall mac-style" placeholder="Search"/>
+                                    <button type="submit" class="btn-xs"><i class="glyphicon glyphicon-search"></i></button>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header><!--/#header-->
+        <div id="headerwrap">
+            <div class="container">
+                <div class="row centered">
+                    <div class="col-lg-12">
+                        <h1>#{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname} </h1>
+                        <h3>#{cvBean.cv.title}</h3>
+                    </div><!--/.col-lg-12 -->
+                </div><!--/.row -->
+            </div><!--/.container -->
+        </div><!--/.#headerwrap -->
+
+
+        <section id="profile">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Profile</h2>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:form id="formSaveProfile"> 
+                        <div class="row center">
+
+                            <div class="col-md-6">
+                                <p style="margin-left: 21px;"> Nom prénom :<h:inputText value="#{editBean.u.firstname}" /> <h:inputText value="#{editBean.u.surname}" /></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p> E-mail : <h:inputText style="margin-left: 21px;" value="#{editBean.u.username}" /></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="margin-right: 75px;"> Age : <h:inputText value="#{editBean.u.age}" /></p>
+                            </div>
+                            <div class="col-md-6 ">
+                                <p> Telephone : <h:inputText value="#{editBean.u.telephone}" /></p>
+                            </div>
+                            <div class="col-md-12">
+                                <p> Adresse : <h:inputText style="width: 50%;" value="#{editBean.u.adresse}"/></p>
+                            </div>
+                        </div><!--row-->
+                        <div class="col-lg-1 col-lg-offset-9">
+                            <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateProfile}" />
+                        </div>
+                    </h:form>
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#profile-->
+
+        <section id="formation">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Formation</h2>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:form id="formSaveFormation"> 
+                        <div class="row">
+                            <ui:repeat value="#{editBean.formations}" var="itemF">
+                                <ui:fragment >
+                                    <div class="col-lg-4 col-lg-offset-3">
+                                        <p><h:inputText class="text-primary" value="#{itemF.diploma}"/><br/>
+                                            <t class ="text-danger"><h:inputText value="#{itemF.school}"/></t> <br/>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        date debut : <h:inputText value="#{itemF.dateStart}"><f:convertDateTime pattern="dd/MM/yyyy"/>  </h:inputText><br/>
+                                        date fin : 
+                                        <h:inputText style="margin-left: 21px;" value="#{itemF.dateEnd}">  
+                                            <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                        </h:inputText>
+                                    </div>
+                                </ui:fragment>
+                            </ui:repeat>
+                        </div><!--/.row -->
+                        <div class="row">
+                            <div class="collapse col-lg-offset-1" id="collapseAddFormation">
+                                <h:form class="form-inline">
+                                    <div class="form-group">
+                                        <h:outputText value="Formation diploma : " />
+                                        <h:inputText value="#{editBean.formationDiploma}" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Formation school/institution: " />
+                                        <h:inputText value="#{editBean.formationSchool}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Formation start: " />
+                                        <h:inputText value="#{editBean.formationStart}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Formation end(empty if still ongoing): " />
+                                        <h:inputText value="#{editBean.formationEnd}" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group"  style="margin-left: 10px;">
+                                        <h:outputText value="Privacy : " />
+                                        <h:selectOneMenu id="skillPublic" value="#{editBean.formationPublic}">
+                                            <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
+                                            <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addFormation}"  />
+                                </h:form>
+                            </div>
+                            <div class="col-lg-2 col-lg-offset-3" >
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAddFormation" aria-expanded="false" aria-controls="collapseAddFormation">ADD</button>
+                            </div>
+                            <div class="col-lg-1 col-lg-offset-4">
+                                <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateFormation}" />
+                            </div>
+                        </div>
+                    </h:form > 
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#formation-->
+        <section id="experience">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Experience</h2>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:form > 
+                        <div class="row">
+                            <ui:repeat value="#{editBean.experiences}" var="item">
+
+                                <div class="col-lg-2 col-lg-offset-2 text-primary">
+                                    <h:inputText value="#{item.enterprise}"/>
+                                </div>
+                                <div class="col-lg-5">
+                                    <h:inputText value="#{item.contractType}"/>
+
+                                    <br></br>
+                                    <h:inputText value="#{item.occupation}"/>
+
+                                    <br></br>
+                                    <blockquote>
+                                        <h:inputTextarea value="#{item.description}"/>
+                                    </blockquote>
+                                </div>
+                                <div class="col-lg-3">
+                                    date debut : <h:inputText value="#{item.dateStart}"><f:convertDateTime pattern="dd/MM/yyyy"/>  </h:inputText><br/>
+                                    date fin :    
+                                    <h:inputText style="margin-left: 21px;" value="#{item.dateEnd}">  
+                                        <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                    </h:inputText>
+                                </div>
+
+                            </ui:repeat>
+                        </div><!--/.row -->
+                        <div class="row">
+                            <div class="collapse col-lg-offset-1" id="collapseAddExperience">
+                                <h:form class="form-inline">
+                                    <div class="form-group">
+                                        <h:outputText value="Company name : " />
+                                        <h:inputText value="#{editBean.experienceCompany}" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Contract type : " />
+                                        <h:inputText value="#{editBean.experienceContract}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Job occupation : " />
+                                        <h:inputText value="#{editBean.experienceOccupation}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Job description (may be empty): " />
+                                        <h:inputTextarea value="#{editBean.experienceDescription}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="job start (dd/mm/yyyy) :" />
+                                        <h:inputText value="#{editBean.experienceStart}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="job end (dd/mm/yyyy) (empty if still ongoing): " />
+                                        <h:inputText value="#{editBean.experienceEnd}" class="form-control"/>
+                                    </div>
+
+                                    <div class="form-group"  style="margin-left: 10px;">
+                                        <h:outputText value="Privacy : " />
+                                        <h:selectOneMenu id="experiencePublic" value="#{editBean.experiencePublic}">
+                                            <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
+                                            <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addExperience}"  />
+                                </h:form>
+                            </div>
+                            <div class="col-lg-2 col-lg-offset-3" >
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAddExperience" aria-expanded="false" aria-controls="collapseAddExperience">ADD</button>
+                            </div>
+                            <div class="col-lg-1 col-lg-offset-4">
+                                <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateExperience}" />
+                            </div>
+                        </div>
+                    </h:form > 
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#experience-->
+        <section id="skill">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Skill</h2>
+                        <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:inputHidden id="roundVal" value="#{cvBean.roundValue}" />
+                    <c:forEach items="#{cvBean.organizedSkill}" var="entry">
+                        <div class="row">
+                            <div class="col-lg-2 col-lg-offset-1">
+                                <h5>#{entry.key}</h5>
+                            </div>
+                            <ui:repeat value="#{entry.value}" var="experience" varStatus="loop">
+
+                                <div class="#{loop.index % 3 != 0 or loop.index==0 ? 'col-lg-3 centered' : 'col-lg-3 col-lg-offset-3 centered'}">
+                                    <!--<canvas id="#{experience.name}" height="130" width="130"></canvas>-->
+                                    <h:form>
+                                        <h:commandLink action="#{cvBean.deleteSkill({experience.field},{experience.name})}" id="but#{experience.name}" styleClass="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </h:commandLink>
+                                    </h:form>
+                                    <div id="#{experience.name}" ></div>
+                                    <p>#{experience.name}</p>
+
+                                    <h:form id="poi-form" styleClass="invisible">
+
+                                        <h:commandButton id="btn#{experience.name}" action="#{cvBean.editSkillLevel({experience.field},{experience.name})}"/>
+
+                                    </h:form>
+
+                                    <script>
+
+                                        var encodedName = escapeRegExp("#{experience.name}");
+                                        var e = document.getElementById("#{experience.name}");
+                                        e.id = encodedName;
+
+                                        $("#" + encodedName).roundSlider({
+                                            sliderType: "min-range",
+                                            radius: 85,
+                                            change: traceEvent,
+                                            value: #{experience.level}
+                                        });
+                                        function traceEvent(e) {
+                                            alert(e.value);
+                                            document.getElementById('roundVal').value = e.value;
+                                            alert('#{cvBean.roundValue}');
+                                            document.getElementById('poi-form:btn#{experience.name}').click();
+                                            alert(e.value);
+                                        }
+                                        ;
+                                    </script>
+
+                                </div>
+                            </ui:repeat>
+
+
+                        </div><!--/.row --> 
+                    </c:forEach>
+
+                    <div class="row">
+                        <div class="collapse col-lg-offset-1" id="collapseAdd">
+                            <h:form class="form-inline">
+                                <div class="form-group">
+                                    <h:outputText value="Skill field : " />
+                                    <h:inputText value="#{editBean.skillField}" class="form-control" id="skillField" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputText value="Skill Name : " />
+                                    <h:inputText value="#{editBean.skillName}" class="form-control" id="skillName" />
+                                </div>
+                                <div class="form-group">
+                                    <h:outputText value="Skill Level : " />
+                                    <h:selectOneMenu id="skillLevel" value="#{editBean.skillLevel}">
+                                        <f:selectItem id="level1" itemLabel="None" itemValue="0" />
+                                        <f:selectItem id="level2" itemLabel="Beginner" itemValue="20" />
+                                        <f:selectItem id="level3" itemLabel="Intermediary" itemValue="50" />
+                                        <f:selectItem id="level4" itemLabel="Intermediary++" itemValue="60" />
+                                        <f:selectItem id="level5" itemLabel="Advanced" itemValue="80" />
+                                        <f:selectItem id="level6" itemLabel="Master" itemValue="90" />
+                                        <f:selectItem id="level7" itemLabel="Top of the world" itemValue="100" />
+
+                                    </h:selectOneMenu>
+                                </div>
+                                <div class="form-group"  style="margin-left: 10px;">
+                                    <h:outputText value="Privacy : " />
+                                    <h:selectOneMenu id="skillPublic" value="#{editBean.skillPublic}">
+                                        <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
+                                        <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                    </h:selectOneMenu>
+                                </div>
+                                <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Submit" action="#{editBean.addSkill}"  />
+                            </h:form>
+                        </div>
+                        <div class="col-lg-2 col-lg-offset-3" >
+                            <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="false" aria-controls="collapseAdd">Add</button>
+                        </div>
+                        <div class="col-lg-1 col-lg-offset-4">
+                            <button type="button" class="btn btn-success">Save</button>
+                        </div>
+                    </div><!--/.box-->
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#skill-->
+
+
+        <section id="friend">
+
+
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Vos contacts</h2>
+                        <!-- <p class="lead">Pellentesque habitant morbi tristique senectus et netus et<br>malesuada fames ac turpis egestas.</p> -->
+                    </div>
+                    <div class="gap"></div> 
+                    <div id="team-scroller" class="carousel scale">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="member">
+
+                                        </div>
+                                    </div> 
+
+                                    <ui:repeat value="#{cvBean.organizedFriends['Active']}" var="friend">
+                                        <div class="col-sm-3">
+                                            <div class="member">
+<!--                                                <h:form>
+                                                    <h:commandLink style="margin-right: 100px;" styleClass="btn btn-danger btn-xs">
+                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                    </h:commandLink>
+                                                </h:form>                -->
+                                                <a class="" href="onepage.xhtml?userId=#{friend.idUser}" >
+                                                    <p><img class=" img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
+                                                    <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.username}</small></h3>
+                                                </a>  
+                                            </div>
+                                        </div> 
+                                    </ui:repeat>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="row">    
+                                    <div class="col-sm-2">
+                                        <div class="member">
+
+                                        </div>
+                                    </div>  
+                                    <ui:repeat value="#{cvBean.organizedFriends['Reserve']}" var="friend">
+                                        <div class="col-sm-3">
+                                            <div class="member">
+
+                                                <a class="preview " href="onepage.xhtml?userId=#{friend.id_user}" >
+                                                    <p><img class="img-responsive img-thumbnail img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
+                                                    <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.surname}</small></h3>
+                                                </a>  
+                                            </div>
+                                        </div> 
+                                    </ui:repeat>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="left-arrow" href="#team-scroller" data-slide="prev">
+                            <i class="fa fa-angle-double-left" style="font-size:36px"></i>
+                        </a>
+                        <a class="right-arrow" href="#team-scroller" data-slide="next">
+                            <i class="fa fa-angle-double-right" style="font-size:36px"></i>
+                        </a>
+                    </div><!--/.carousel-->
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#about-us-->
+
+        <section id="contact">
+            <div class="container">
+                <div class="box last">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <h1 class="text-primary">Contact Form</h1>
+                            <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+                            <div class="status alert alert-success" style="display: none"></div>
+                            <form id="main-contact-form" class="contact-form" name="contact-form" method="post" action="sendemail.php" role="form">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" required="required" placeholder="Name"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" required="required" placeholder="Email address"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <textarea name="message" id="message" required="required" class="form-control" rows="8" placeholder="Message"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-danger btn-lg">Send Message</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div><!--/.col-sm-6-->
+                        <div class="col-sm-6">
+                            <h1>Our Address</h1>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <address>
+                                        <strong>Twitter, Inc.</strong><br/>
+                                        795 Folsom Ave, Suite 600<br/>
+                                        San Francisco, CA 94107<br/>
+                                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                                    </address>
+                                </div>
+                                <div class="col-md-6">
+                                    <address>
+                                        <strong>Twitter, Inc.</strong><br/>
+                                        795 Folsom Ave, Suite 600<br/>
+                                        San Francisco, CA 94107<br/>
+                                        <abbr title="Phone">P:</abbr> (123) 456-7890
+                                    </address>
+                                </div>
+                            </div>
+                            <h1>Connect with us</h1>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="social">
+                                        <li><a href="#"><i class="icon-facebook icon-social"></i> Facebook</a></li>
+                                        <li><a href="#"><i class="icon-google-plus icon-social"></i> Google Plus</a></li>
+                                        <li><a href="#"><i class="icon-pinterest icon-social"></i> Pinterest</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="social">
+                                        <li><a href="#"><i class="icon-linkedin icon-social"></i> Linkedin</a></li>
+                                        <li><a href="#"><i class="icon-twitter icon-social"></i> Twitter</a></li>
+                                        <li><a href="#"><i class="icon-youtube icon-social"></i> Youtube</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!--/.col-sm-6-->
+                    </div><!--/.row-->
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#contact-->
+
+        <footer id="footer">
+
+        </footer><!--/#footer-->
+
+        <!--        <script>
+                    var a = ["sliderPython", "sliderJava", "sliderAndroid"];
+                 
+                    a.forEach(function(entry) {
+                        var connectSlider = document.getElementById(entry);
+        
+                        noUiSlider.create(connectSlider, {
+                                start: 0,
+                                range: {
+                                        'min': 0,
+                                        'max': 100
+                                }
+                        });
+                        });
+                   
+                </script>-->
+    </body>
+</html>

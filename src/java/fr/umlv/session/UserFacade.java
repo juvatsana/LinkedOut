@@ -9,6 +9,7 @@ import fr.umlv.entity.User;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +30,11 @@ public class UserFacade extends AbstractFacade<User> {
         super(User.class);
     }
     
+    public User getUserById(int idUser) {
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.idUser = :idUser");
+        q.setParameter("idUser", idUser);
+        User u = (User)q.getSingleResult();
+
+        return u ;
+    }
 }

@@ -18,7 +18,8 @@
         <link href="ressources/css/main.css" rel="stylesheet"/>
         <link rel="shortcut icon" href="ressources/img/ico/favicon.ico"/>
         <script src="ressources/js/Chart.js"></script>
-        <f:metadata>
+        
+       <f:metadata>
             <f:viewParam name="userId" value="#{cvBean.userId}" converter="javax.faces.Integer" />
             <f:viewAction action="#{cvBean.init}" />
         </f:metadata>
@@ -73,7 +74,7 @@
                     <div class="row center">
 
                         <div class="col-md-6">
-                            <p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p>
+                            <h:outputText><p> Nom prénom : #{cvBean.cv.idUser.firstname} #{cvBean.cv.idUser.surname}</p></h:outputText>
                         </div>
                         <div class="col-md-6">
                             <p> E-mail : #{cvBean.cv.idUser.username}</p>
@@ -358,11 +359,6 @@
 
         </footer><!--/#footer-->
 
-
-        <script src="ressources/js/jquery.js"></script>
-        <script src="ressources/js/bootstrap.min.js"></script>
-        <script src="ressources/js/jquery.isotope.min.js"></script>
-        <script src="ressources/js/jquery.prettyPhoto.js"></script>
-        <script src="ressources/js/main.js"></script>
+        
     </body>
 </html>

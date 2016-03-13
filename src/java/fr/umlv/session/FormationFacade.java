@@ -28,5 +28,5 @@ public class FormationFacade extends AbstractFacade<Formation> {
     public FormationFacade() {
         super(Formation.class);
     }
-    
+
 }

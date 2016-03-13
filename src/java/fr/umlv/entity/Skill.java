@@ -60,6 +60,14 @@ public class Skill implements Serializable {
     public Skill() {
     }
 
+    public Skill(String name, String field, String level, Boolean public1, Cv idCv) {
+        this.name = name;
+        this.field = field;
+        this.level = level;
+        this.public1 = public1;
+        this.idCv = idCv;
+    }
+
     public Skill(Integer idSkill) {
         this.idSkill = idSkill;
     }
