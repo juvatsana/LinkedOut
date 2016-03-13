@@ -179,39 +179,6 @@ public class CvBean {
         }
 
     }
-    
-    public String deleteSkill(HashSet fieldH, HashSet nameSkillH) {
-         
-        String nameField = (String) fieldH.iterator().next();
-        List<Skill> skills = organizedSkill.get(nameField);
-     
-        String nameSkill = (String) nameSkillH.iterator().next();
-        
-        for(Skill s: skills) {
-            if(s.getName().equals(nameSkill)) {
-                skillf.remove(s);
-                return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#skill";
-            }
-        }
-        return "onepageOwner.xhtml";
-    }
-    public void editSkillLevel (HashSet fieldH, HashSet nameSkillH) {
-         
-        String nameField = (String) fieldH.iterator().next();
-        List<Skill> skills = organizedSkill.get(nameField);
-     
-        String nameSkill = (String) nameSkillH.iterator().next();
-        
-        for(Skill s: skills) {
-            if(s.getName().equals(nameSkill)) {
-                
-                s.setLevel(roundValue);
-                skillf.edit(s);
-               
-            }
-        }
-       
-    }
 
     public User findUserById(int id){
         return userf.find(id);

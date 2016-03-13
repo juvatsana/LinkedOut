@@ -51,18 +51,16 @@
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#headerwrap"><i class="glyphicon glyphicon-home"></i></a></li>
+                            <li><h:outputLink value="onepage.xhtml?userId=#{loginBean.idUser}">Quit Edit</h:outputLink></li>
                             <li><a href="#profile">Profile</a></li>
                             <li><a href="#formation">Formation</a></li>
                             <li><a href="#experience">Experience</a></li>
                             <li><a href="#skill">Skill</a></li>                          
                             <li><a href="#friend">Friend</a></li>
                             <li><a href="#contact">Contact</a></li>
-                            <li>
-                                <a>
-                                    <input type="text" class="search-query input-xsmall mac-style" placeholder="Search"/>
-                                    <button type="submit" class="btn-xs"><i class="glyphicon glyphicon-search"></i></button>
-                                </a>
-                            </li>
+                            <li onmousedown="window.open('research.xhtml','_blank')">   
+                            <h:outputLink value="research.xhtml">Research</h:outputLink>
+                            </li> 
 
                         </ul>
                     </div>
@@ -277,8 +275,8 @@
                         <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
                     <div class="gap"></div>
-                    <h:inputHidden id="roundVal" value="#{cvBean.roundValue}" />
-                    <c:forEach items="#{cvBean.organizedSkill}" var="entry">
+                    
+                    <c:forEach items="#{editBean.organizedSkill}" var="entry">
                         <div class="row">
                             <div class="col-lg-2 col-lg-offset-1">
                                 <h5>#{entry.key}</h5>
@@ -396,7 +394,7 @@
                                         </div>
                                     </div> 
 
-                                    <ui:repeat value="#{cvBean.organizedFriends['Active']}" var="friend">
+                                    <ui:repeat value="#{editBean.organizedFriends['Active']}" var="friend">
                                         <div class="col-sm-3">
                                             <div class="member">
 <!--                                                <h:form>
@@ -420,7 +418,7 @@
 
                                         </div>
                                     </div>  
-                                    <ui:repeat value="#{cvBean.organizedFriends['Reserve']}" var="friend">
+                                    <ui:repeat value="#{editBean.organizedFriends['Reserve']}" var="friend">
                                         <div class="col-sm-3">
                                             <div class="member">
 

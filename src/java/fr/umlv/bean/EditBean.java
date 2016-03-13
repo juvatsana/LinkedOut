@@ -21,8 +21,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 
 import java.util.HashSet;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -58,6 +60,12 @@ public class EditBean {
 
     //experiences
     private Collection<Experience> experiences;
+    
+    //skills
+    private HashMap<String, List<Skill>> organizedSkill = new HashMap<>();
+    
+    //friends
+    private HashMap<String, List<User>> organizedFriends = new HashMap<>();
 
     //section personal
     private User u;
@@ -90,12 +98,27 @@ public class EditBean {
     private String experienceEnd;
     private boolean experiencePublic = true;
 
+    
+    //roundValue
+    private String roundValue;
+
+    public String getRoundValue() {
+        return roundValue;
+    }
+
+    public void setRoundValue(String roundValue) {
+        this.roundValue = roundValue;
+    }
+    
     public void initEditBean() {
         u = uf.getUserById(userId);
         cv = cvf.getCvId(userId);
         formations = cv.getFormationCollection();
         experiences = cv.getExperienceCollection();
-        title = cv.getTitle();
+        title = cv.getTitle();    
+        getClassedSkill();
+        getHashFriends();
+     
 
     }
 
@@ -132,6 +155,13 @@ public class EditBean {
         this.experiences = experiences;
     }
 
+    public HashMap<String, List<Skill>> getOrganizedSkill() {
+        return organizedSkill;
+    }
+     
+    public HashMap<String, List<User>> getOrganizedFriends() {
+        return organizedFriends;
+    }
     public String getUsername() {
         return username;
     }
@@ -399,5 +429,72 @@ public class EditBean {
         for (Experience e : experiences) {
             exf.edit(e);
         }
+    }
+    
+    private void getClassedSkill() {
+        Collection<Skill> skills =  cv.getSkillCollection();    
+        organizedSkill = new HashMap<>();
+        for (Skill s: skills) {
+            List<Skill> list = organizedSkill.get(s.getField());
+            if (list == null) {
+                list = new ArrayList<>();
+                organizedSkill.put(s.getField(), list);
+            }
+            list.add(s);
+        }
+        
+    }
+    
+    private void getHashFriends() {
+        Collection<User> friends =  cv.getIdUser().getUserCollection();    
+        organizedFriends = new HashMap<>();
+        int i = 0;
+        List<User> lActive = new ArrayList<>();
+        List<User> lReserve = new ArrayList<>();
+        organizedFriends.put("Active",lActive);
+        organizedFriends.put("Reserve",lReserve);
+        for (User u: friends) {
+            if (i<3) {
+                List<User> list = organizedFriends.get("Active");
+                list.add(u);
+            } else {
+                List<User> list = organizedFriends.get("Reserve");
+                list.add(u);
+            }
+        }
+
+    }
+    
+    public String deleteSkill(HashSet fieldH, HashSet nameSkillH) {
+         
+        String nameField = (String) fieldH.iterator().next();
+        List<Skill> skills = organizedSkill.get(nameField);
+     
+        String nameSkill = (String) nameSkillH.iterator().next();
+        
+        for(Skill s: skills) {
+            if(s.getName().equals(nameSkill)) {
+                sf.remove(s);
+                return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#skill";
+            }
+        }
+        return "onepageOwner.xhtml";
+    }
+    public void editSkillLevel (HashSet fieldH, HashSet nameSkillH) {
+         
+        String nameField = (String) fieldH.iterator().next();
+        List<Skill> skills = organizedSkill.get(nameField);
+     
+        String nameSkill = (String) nameSkillH.iterator().next();
+        
+        for(Skill s: skills) {
+            if(s.getName().equals(nameSkill)) {
+                
+                s.setLevel(roundValue);
+                sf.edit(s);
+               
+            }
+        }
+       
     }
 }
