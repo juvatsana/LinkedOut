@@ -43,6 +43,7 @@ public class CvBean {
     
     private Cv cv;
     private User user;
+
     
     private HashMap<String, List<Skill>> organizedSkill = new HashMap<>();
     private HashMap<String, List<User>> organizedFriends = new HashMap<>();
@@ -67,6 +68,9 @@ public class CvBean {
         return organizedFriends;
     }
 
+    private Collection<Cv> allCv;
+
+
     public int getUserId() {
         return userId;
     }
@@ -74,6 +78,12 @@ public class CvBean {
     public void setUserId(int userId) {
         this.userId = userId;
     }   
+
+
+    public Collection<Cv> getAllCv(){
+        return allCv;
+    }
+
  
     public Cv getCv() {
         return cv;
@@ -96,9 +106,9 @@ public class CvBean {
         cv = cvf.getCvId(userId);
         getClassedSkill();
         getHashFriends();
-       
-        
+        allCv = cvf.getAllCv();
     }
+     
     public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
        Date date2 = (Date) hashdate2.iterator().next();
        Date date1 = (Date) hashdate1.iterator().next();
@@ -202,5 +212,9 @@ public class CvBean {
         }
        
     }
-   
+
+    public User findUserById(int id){
+        return userf.find(id);
+    }
+
 }

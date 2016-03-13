@@ -159,6 +159,19 @@ public class Cv implements Serializable {
     @Override
     public String toString() {
         return "fr.umlv.entity.Cv[ idCv=" + idCv + " ]";
+    }    
+
+    /**
+     * @return the cvCollection
+     */
+
+    /*
+    public Collection<Cv> getCvCollection() {
+        return cvCollection;
     }
-    
+
+    public void setCvCollection(Collection<Cv> cvCollection) {
+        this.cvCollection = cvCollection;
+    }
+    */
 }

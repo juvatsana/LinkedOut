@@ -18,8 +18,15 @@
         <link href="ressources/css/main.css" rel="stylesheet"/>
         <link rel="shortcut icon" href="ressources/img/ico/favicon.ico"/>
         <script src="ressources/js/Chart.js"></script>
+<<<<<<< HEAD
         
        <f:metadata>
+=======
+        <script>
+        </script>
+        
+        <f:metadata>
+>>>>>>> 24ec5451f6720c744e35bdad688d353c324faaf6
             <f:viewParam name="userId" value="#{cvBean.userId}" converter="javax.faces.Integer" />
             <f:viewAction action="#{cvBean.init}" />
         </f:metadata>
@@ -38,14 +45,19 @@
                             <li><a href="#experience">Experience</a></li>
                             <li><a href="#skill">Skill</a></li>                          
                             <li><a href="#friend">Friend</a></li>
-                            <li><a href="#contact">Contact</a></li>
+                            <li><a href="#contact">Contact</a></li>     
+                            <li onmousedown="window.open('research.xhtml','_blank')">   
+                            <h:outputLink value="research.xhtml">Research</h:outputLink>
+                            </li> 
+                            <!--
+                            
                             <li>
                                 <a>
                                     <input type="text" class="search-query input-xsmall mac-style" placeholder="Search"/>
                                     <button type="submit" class="btn-xs"><i class="glyphicon glyphicon-search"></i></button>
                                 </a>
                             </li>
-
+                            -->
                         </ul>
                     </div>
                 </div>
