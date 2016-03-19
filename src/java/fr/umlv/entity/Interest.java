@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Interest.findByIdInterest", query = "SELECT i FROM Interest i WHERE i.idInterest = :idInterest"),
     @NamedQuery(name = "Interest.findByName", query = "SELECT i FROM Interest i WHERE i.name = :name"),
     @NamedQuery(name = "Interest.findByDescription", query = "SELECT i FROM Interest i WHERE i.description = :description"),
-    @NamedQuery(name = "Interest.findByPublic1", query = "SELECT i FROM Interest i WHERE i.public1 = :public1")})
+    @NamedQuery(name = "Interest.findByVisibility", query = "SELECT i FROM Interest i WHERE i.visibility = :visibility")})
 public class Interest implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,13 +47,21 @@ public class Interest implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @Column(name = "public")
-    private Boolean public1;
+    @Size(max = 7)
+    @Column(name = "visibility")
+    private String visibility;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
     @ManyToOne(optional = false)
     private Cv idCv;
 
     public Interest() {
+    }
+
+    public Interest(String name, String description, String visibility, Cv idCv) {
+        this.name = name;
+        this.description = description;
+        this.visibility = visibility;
+        this.idCv = idCv;
     }
 
     public Interest(Integer idInterest) {
@@ -84,12 +92,12 @@ public class Interest implements Serializable {
         this.description = description;
     }
 
-    public Boolean getPublic1() {
-        return public1;
+    public String getVisibility() {
+        return visibility;
     }
 
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Cv getIdCv() {

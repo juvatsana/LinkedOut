@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Skill.findByName", query = "SELECT s FROM Skill s WHERE s.name = :name"),
     @NamedQuery(name = "Skill.findByField", query = "SELECT s FROM Skill s WHERE s.field = :field"),
     @NamedQuery(name = "Skill.findByLevel", query = "SELECT s FROM Skill s WHERE s.level = :level"),
-    @NamedQuery(name = "Skill.findByPublic1", query = "SELECT s FROM Skill s WHERE s.public1 = :public1")})
+    @NamedQuery(name = "Skill.findByVisibility", query = "SELECT s FROM Skill s WHERE s.visibility = :visibility")})
 public class Skill implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,11 +48,11 @@ public class Skill implements Serializable {
     @Size(max = 25)
     @Column(name = "field")
     private String field;
-    @Size(max = 25)
     @Column(name = "level")
-    private String level;
-    @Column(name = "public")
-    private Boolean public1;
+    private Integer level;
+    @Size(max = 7)
+    @Column(name = "visibility")
+    private String visibility;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
     @ManyToOne(optional = false)
     private Cv idCv;
@@ -60,16 +60,16 @@ public class Skill implements Serializable {
     public Skill() {
     }
 
-    public Skill(String name, String field, String level, Boolean public1, Cv idCv) {
+    public Skill(Integer idSkill) {
+        this.idSkill = idSkill;
+    }
+
+    public Skill(String name, String field, Integer level, String visibility, Cv idCv) {
         this.name = name;
         this.field = field;
         this.level = level;
-        this.public1 = public1;
+        this.visibility = visibility;
         this.idCv = idCv;
-    }
-
-    public Skill(Integer idSkill) {
-        this.idSkill = idSkill;
     }
 
     public Integer getIdSkill() {
@@ -96,20 +96,20 @@ public class Skill implements Serializable {
         this.field = field;
     }
 
-    public String getLevel() {
+    public Integer getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(Integer level) {
         this.level = level;
     }
 
-    public Boolean getPublic1() {
-        return public1;
+    public String getVisibility() {
+        return visibility;
     }
 
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Cv getIdCv() {

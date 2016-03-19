@@ -10,21 +10,26 @@ import fr.umlv.entity.Skill;
 import fr.umlv.entity.User;
 import fr.umlv.entity.Formation;
 import fr.umlv.entity.Experience;
+import fr.umlv.entity.Langage;
+import fr.umlv.entity.Interest;
 
 import fr.umlv.session.CvFacade;
 import fr.umlv.session.SkillFacade;
 import fr.umlv.session.UserFacade;
 import fr.umlv.session.FormationFacade;
 import fr.umlv.session.ExperienceFacade;
+import fr.umlv.session.LangageFacade;
+import fr.umlv.session.InterestFacade;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -47,6 +52,10 @@ public class EditBean {
     private FormationFacade ff;
     @EJB
     private ExperienceFacade exf;
+    @EJB
+    private LangageFacade lf;
+    @EJB
+    private InterestFacade intf;
 
     //userId
     private int userId;
@@ -60,6 +69,12 @@ public class EditBean {
 
     //experiences
     private Collection<Experience> experiences;
+    
+    //langage
+    private Collection<Langage> langages;
+    
+    //interest
+    private Collection<Interest> interests;
     
     //skills
     private HashMap<String, List<Skill>> organizedSkill = new HashMap<>();
@@ -79,15 +94,15 @@ public class EditBean {
     //section add skill
     private String skillField;
     private String skillName;
-    private String skillLevel;
-    private boolean skillPublic = true;
+    private int skillLevel;
+    private String skillPublic = "public";
 
     //section add formation
     private String formationSchool;
     private String formationDiploma;
     private String formationStart;
     private String formationEnd;
-    private boolean formationPublic = true;
+    private String formationPublic = "public";
 
     //section add experience
     private String experienceCompany;
@@ -96,8 +111,17 @@ public class EditBean {
     private String experienceDescription;
     private String experienceStart;
     private String experienceEnd;
-    private boolean experiencePublic = true;
+    private String experiencePublic = "public";
 
+    //section add langage
+    private String langageName;
+    private String langageLevel;
+    private String langagePublic = "public";
+    
+    //section add interest
+    private String interestName;
+    private String interestDescription;
+    private String interestPublic = "public";
     
     //roundValue
     private String roundValue;
@@ -114,7 +138,12 @@ public class EditBean {
         u = uf.getUserById(userId);
         cv = cvf.getCvId(userId);
         formations = cv.getFormationCollection();
+        for(Formation f: formations) {
+            System.out.println(f);
+        }
         experiences = cv.getExperienceCollection();
+        langages = cv.getLangageCollection();
+        interests = cv.getInterestCollection();
         title = cv.getTitle();    
         getClassedSkill();
         getHashFriends();
@@ -226,11 +255,11 @@ public class EditBean {
         this.skillName = skillName;
     }
 
-    public String getSkillLevel() {
+    public int getSkillLevel() {
         return skillLevel;
     }
 
-    public void setSkillLevel(String skillLevel) {
+    public void setSkillLevel(int skillLevel) {
         this.skillLevel = skillLevel;
     }
 
@@ -242,11 +271,9 @@ public class EditBean {
         this.userId = userId;
     }
 
-    public boolean isSkillPublic() {
-        return skillPublic;
-    }
+    
 
-    public void setSkillPublic(boolean skillPublic) {
+    public void setSkillPublic(String skillPublic) {
         this.skillPublic = skillPublic;
     }
 
@@ -286,11 +313,9 @@ public class EditBean {
         this.formationEnd = formationEnd;
     }
 
-    public boolean isFormationPublic() {
-        return formationPublic;
-    }
+    
 
-    public void setFormationPublic(boolean formationPublic) {
+    public void setFormationPublic(String formationPublic) {
         this.formationPublic = formationPublic;
     }
 
@@ -342,26 +367,121 @@ public class EditBean {
         this.experienceEnd = experienceEnd;
     }
 
-    public boolean isExperiencePublic() {
-        return experiencePublic;
-    }
+   
 
-    public void setExperiencePublic(boolean experiencePublic) {
+    public void setExperiencePublic(String experiencePublic) {
         this.experiencePublic = experiencePublic;
     }
 
+    public Collection<Langage> getLangages() {
+        return langages;
+    }
+
+    public void setLangages(Collection<Langage> langages) {
+        this.langages = langages;
+    }
+
+    public Collection<Interest> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(Collection<Interest> interests) {
+        this.interests = interests;
+    }
+
+    public String getLangageName() {
+        return langageName;
+    }
+
+    public void setLangageName(String langageName) {
+        this.langageName = langageName;
+    }
+
+    public String getLangageLevel() {
+        return langageLevel;
+    }
+
+    public void setLangageLevel(String langageLevel) {
+        this.langageLevel = langageLevel;
+    }
+
+    public void setLangagePublic(String langagePublic) {
+        this.langagePublic = langagePublic;
+    }
+
+    public String getInterestName() {
+        return interestName;
+    }
+
+    public void setInterestName(String interestName) {
+        this.interestName = interestName;
+    }
+
+
+    public void setInterestPublic(String interestPublic) {
+        this.interestPublic = interestPublic;
+    }
+
+    public String getInterestDescription() {
+        return interestDescription;
+    }
+
+    public void setInterestDescription(String interestDescription) {
+        this.interestDescription = interestDescription;
+    }
+
+    public String getSkillPublic() {
+        return skillPublic;
+    }
+
+    public String getFormationPublic() {
+        return formationPublic;
+    }
+
+    public String getExperiencePublic() {
+        return experiencePublic;
+    }
+
+    public String getLangagePublic() {
+        return langagePublic;
+    }
+
+    public String getInterestPublic() {
+        return interestPublic;
+    }
+
+    
     public String addSkill() {
-        if (!skillField.equals("") && !skillName.equals("") && !skillName.equals("")) {
+        if (!skillField.equals("") && !skillName.equals("")) {
 
             Skill s = new Skill(skillName, skillField, skillLevel, skillPublic, cv);
             sf.insertSkill(s);
         }
         skillField = "";
         skillName = "";
-        skillLevel = "";
+        skillLevel = 0;
         return "onepageOwner.xhtml?userId=" + Integer.toString(userId) + "#skill";
     }
+    public String addLangage() {
+        if (!langageName.equals("")) {
+            Langage l = new Langage(langageName, langageLevel, langagePublic, cv);
+            lf.create(l);
+           
+        }
+        langageName = "";
+        return "onepageOwner.xhtml?userId=" + Integer.toString(userId) + "#langage";
+    }
 
+    public String addInterest() {
+        if (!interestName.equals("")) {
+            Interest i = new Interest(interestName, interestDescription, interestPublic, cv);
+            intf.create(i);
+           
+        }
+        interestName = "";
+        interestDescription = "";
+        return "onepageOwner.xhtml?userId=" + Integer.toString(userId) + "#interest";
+    }
     public String addFormation() {
 
         if (!formationDiploma.equals("") && !formationSchool.equals("") && !formationStart.equals("")) {
@@ -387,7 +507,7 @@ public class EditBean {
     }
 
     public String addExperience() {
-
+        
         if (!experienceCompany.equals("") && !experienceContract.equals("") && !experienceOccupation.equals("") &&!experienceStart.equals("")) {
 
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -423,6 +543,10 @@ public class EditBean {
         for (Formation f : formations) {
             ff.edit(f);
         }
+        formations = cv.getFormationCollection();
+        for(Formation f: formations) {
+            System.out.println(f);
+        }
     }
 
     public void updateExperience() {
@@ -430,6 +554,31 @@ public class EditBean {
             exf.edit(e);
         }
     }
+    
+    public void updateSkill() {
+        Iterator it = organizedSkill.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+             List<Skill> l = (List<Skill>)pair.getValue();
+             for (Skill s : l){
+                 sf.edit(s);
+             }
+           
+        }
+    }
+    
+    public void updateLangage() {
+        for (Langage l : langages) {
+            lf.edit(l);
+        }
+    }
+    
+    public void updateInterest() {
+        for (Interest i : interests) {
+            intf.edit(i);
+        }
+    }
+    
     
     private void getClassedSkill() {
         Collection<Skill> skills =  cv.getSkillCollection();    
@@ -464,7 +613,44 @@ public class EditBean {
         }
 
     }
+    public String deleteFormation(HashSet formationH) {
+        int idFormation = (int)formationH.iterator().next();
+        Formation form = ff.find(idFormation);
+        ff.remove(form);
+        return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#formation";
+    }
     
+    public String deleteExperience(HashSet experienceH) {
+        int idExperience = (int)experienceH.iterator().next();
+        Experience exp = exf.find(idExperience);
+        exf.remove(exp);
+        return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#experience";
+    }
+    
+    public String deleteLangage(HashSet langageH) {
+        int idLangage= (int)langageH.iterator().next();
+        Langage l = lf.find(idLangage);
+        lf.remove(l);
+        return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#langage";
+    }
+    
+    public String deleteInterest(HashSet interestH) {
+        int idInterest= (int)interestH.iterator().next();
+        Interest i = intf.find(idInterest);
+        intf.remove(i);
+        return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#interest";
+    }
+    
+    
+    
+    public String deleteSkill(HashSet skillH) {
+        int idSkill = (int)skillH.iterator().next();
+        Skill s = sf.find(idSkill);
+        sf.remove(s);
+        return "onepageOwner.xhtml?userId="+Integer.toString(userId)+"#skill";
+    }
+    
+    /*
     public String deleteSkill(HashSet fieldH, HashSet nameSkillH) {
          
         String nameField = (String) fieldH.iterator().next();
@@ -480,21 +666,6 @@ public class EditBean {
         }
         return "onepageOwner.xhtml";
     }
-    public void editSkillLevel (HashSet fieldH, HashSet nameSkillH) {
-         
-        String nameField = (String) fieldH.iterator().next();
-        List<Skill> skills = organizedSkill.get(nameField);
-     
-        String nameSkill = (String) nameSkillH.iterator().next();
-        
-        for(Skill s: skills) {
-            if(s.getName().equals(nameSkill)) {
-                
-                s.setLevel(roundValue);
-                sf.edit(s);
-               
-            }
-        }
-       
-    }
+    */
+    
 }

@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
     @NamedQuery(name = "User.findBySurname", query = "SELECT u FROM User u WHERE u.surname = :surname"),
+    @NamedQuery(name = "User.findBySexe", query = "SELECT u FROM User u WHERE u.sexe = :sexe"),
     @NamedQuery(name = "User.findByAge", query = "SELECT u FROM User u WHERE u.age = :age"),
     @NamedQuery(name = "User.findByTelephone", query = "SELECT u FROM User u WHERE u.telephone = :telephone"),
     @NamedQuery(name = "User.findByAdresse", query = "SELECT u FROM User u WHERE u.adresse = :adresse")})
@@ -68,6 +69,11 @@ public class User implements Serializable {
     private String surname;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 1)
+    @Column(name = "Sexe")
+    private String sexe;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "age")
     private int age;
     @Column(name = "telephone")
@@ -75,9 +81,6 @@ public class User implements Serializable {
     @Size(max = 25)
     @Column(name = "adresse")
     private String adresse;
-    @Size(max = 1)
-    @Column(name = "sexe")
-    private String sexe;
     @JoinTable(name = "friend", joinColumns = {
         @JoinColumn(name = "id_user", referencedColumnName = "id_user")}, inverseJoinColumns = {
         @JoinColumn(name = "id_user_User", referencedColumnName = "id_user")})
@@ -95,10 +98,11 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(Integer idUser, String username, String password, int age) {
+    public User(Integer idUser, String username, String password, String sexe, int age) {
         this.idUser = idUser;
         this.username = username;
         this.password = password;
+        this.sexe = sexe;
         this.age = age;
     }
 
@@ -142,6 +146,14 @@ public class User implements Serializable {
         this.surname = surname;
     }
 
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
     public int getAge() {
         return age;
     }
@@ -164,14 +176,6 @@ public class User implements Serializable {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
-    }
-
-    public String getSexe() {
-        return sexe;
-    }
-
-    public void setSexe(String sexe) {
-        this.sexe = sexe;
     }
 
     @XmlTransient
@@ -223,7 +227,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "fr.umlv.database.User[ idUser=" + idUser + " ]";
+        return "fr.umlv.entity.User[ idUser=" + idUser + " ]";
     }
     
 }

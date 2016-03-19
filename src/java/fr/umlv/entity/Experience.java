@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Experience.findByDateEnd", query = "SELECT e FROM Experience e WHERE e.dateEnd = :dateEnd"),
     @NamedQuery(name = "Experience.findByOccupation", query = "SELECT e FROM Experience e WHERE e.occupation = :occupation"),
     @NamedQuery(name = "Experience.findByDescription", query = "SELECT e FROM Experience e WHERE e.description = :description"),
-    @NamedQuery(name = "Experience.findByPublic1", query = "SELECT e FROM Experience e WHERE e.public1 = :public1")})
+    @NamedQuery(name = "Experience.findByVisibility", query = "SELECT e FROM Experience e WHERE e.visibility = :visibility")})
 public class Experience implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,8 +66,9 @@ public class Experience implements Serializable {
     @Size(max = 255)
     @Column(name = "description")
     private String description;
-    @Column(name = "public")
-    private Boolean public1;
+    @Size(max = 7)
+    @Column(name = "visibility")
+    private String visibility;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
     @ManyToOne(optional = false)
     private Cv idCv;
@@ -75,24 +76,24 @@ public class Experience implements Serializable {
     public Experience() {
     }
 
-    public Experience(String contractType, String enterprise, Date dateStart, Date dateEnd, String occupation, String description, Boolean public1, Cv idCv) {
+    public Experience(String contractType, String enterprise, Date dateStart, Date dateEnd, String occupation, String description, String visibility, Cv idCv) {
         this.contractType = contractType;
         this.enterprise = enterprise;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.occupation = occupation;
         this.description = description;
-        this.public1 = public1;
+        this.visibility = visibility;
         this.idCv = idCv;
     }
 
-    public Experience(String contractType, String enterprise, Date dateStart, String occupation, String description, Boolean public1, Cv idCv) {
+    public Experience(String contractType, String enterprise, Date dateStart, String occupation, String description, String visibility, Cv idCv) {
         this.contractType = contractType;
         this.enterprise = enterprise;
         this.dateStart = dateStart;
         this.occupation = occupation;
         this.description = description;
-        this.public1 = public1;
+        this.visibility = visibility;
         this.idCv = idCv;
     }
 
@@ -157,12 +158,12 @@ public class Experience implements Serializable {
         this.description = description;
     }
 
-    public Boolean getPublic1() {
-        return public1;
+    public String getVisibility() {
+        return visibility;
     }
 
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Cv getIdCv() {

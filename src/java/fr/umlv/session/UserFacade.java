@@ -29,7 +29,6 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-    
     public User getUserById(int idUser) {
         Query q = em.createQuery("SELECT u FROM User u WHERE u.idUser = :idUser");
         q.setParameter("idUser", idUser);

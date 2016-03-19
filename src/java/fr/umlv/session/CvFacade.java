@@ -50,5 +50,4 @@ public class CvFacade extends AbstractFacade<Cv> {
         System.out.println(q.getResultList());
         return (Collection<Cv>) q.getResultList();
     }
-
 }

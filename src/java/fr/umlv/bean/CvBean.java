@@ -6,8 +6,11 @@
 package fr.umlv.bean;
 
 import fr.umlv.entity.Cv;
+import fr.umlv.entity.Interest;
+import fr.umlv.entity.Langage;
 import fr.umlv.entity.Skill;
 import fr.umlv.entity.User;
+import fr.umlv.login.LoginBean;
 import fr.umlv.session.CvFacade;
 import fr.umlv.session.UserFacade;
 import fr.umlv.session.SkillFacade;
@@ -22,6 +25,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import java.util.Date;
 import java.util.HashMap;
+import javax.faces.bean.ManagedProperty;
 
 /**
  *
@@ -31,7 +35,9 @@ import java.util.HashMap;
 @SessionScoped
 public class CvBean {
     
-  
+    @ManagedProperty(value="#{loginBean}")
+    private LoginBean loginb;
+
     private int userId;
     
     @EJB
@@ -43,7 +49,13 @@ public class CvBean {
     
     private Cv cv;
     private User user;
-
+    private User userlogin;
+    
+    //langage
+    private Collection<Langage> langages;
+    
+    //interest
+    private Collection<Interest> interests;
     
     private HashMap<String, List<Skill>> organizedSkill = new HashMap<>();
     private HashMap<String, List<User>> organizedFriends = new HashMap<>();
@@ -51,11 +63,43 @@ public class CvBean {
 
     //roundValue
     private String roundValue;
-
+    
+    private boolean enabled;
+    
+    public String toggle() {
+        if(enabled == true) {
+            //enlever des following
+            System.out.println("************************");
+            System.out.println(userlogin.getUserCollection());
+            userlogin.getUserCollection().remove(user);
+            System.out.println(userlogin.getUserCollection());
+            System.out.println("************************");
+        } else {
+            //ajouter des following
+            System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+            System.out.println(userlogin.getUserCollection());
+            userlogin.getUserCollection().add(user);
+            System.out.println(userlogin.getUserCollection());
+            System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+        }
+        enabled = !enabled;
+        
+        return "onepage.xhtml?userId="+Integer.toString(userId)+"&faces-redirect=true";
+    }
+    
+    public void change(String value) {
+        System.out.print("banane");
+        System.out.println(value);
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
     public String getRoundValue() {
         return roundValue;
     }
-
+    
     public void setRoundValue(String roundValue) {
         this.roundValue = roundValue;
     }
@@ -63,93 +107,102 @@ public class CvBean {
     public HashMap<String, List<Skill>> getOrganizedSkill() {
         return organizedSkill;
     }
-
+    
     public HashMap<String, List<User>> getOrganizedFriends() {
         return organizedFriends;
     }
-
+    
     private Collection<Cv> allCv;
-
-
+    
     public int getUserId() {
         return userId;
     }
-
+    
     public void setUserId(int userId) {
         this.userId = userId;
-    }   
-
-
-    public Collection<Cv> getAllCv(){
+    }    
+    
+    public Collection<Cv> getAllCv() {
         return allCv;
     }
-
- 
+    
     public Cv getCv() {
         return cv;
     }
-
+    
     public void setCv(Cv cv) {
         this.cv = cv;
     }
-
+    
     public User getUser() {
         return user;
     }
-
+    
     public void setUser(User user) {
         this.user = user;
     }
     
-     public void init() {
+    public void init() {
         user = userf.find(userId);
         cv = cvf.getCvId(userId);
         getClassedSkill();
         getHashFriends();
+        langages = cv.getLangageCollection();
+        interests = cv.getInterestCollection();
+        
         allCv = cvf.getAllCv();
+        
+        userlogin = userf.find(loginb.getIdUser());
+        Collection<User> friends = userlogin.getUserCollection();   
+        enabled = false;
+        for(User u: friends) {
+            if(u.getIdUser().equals(user.getIdUser())){
+                enabled = true;
+            }
+        }
+       
     }
-     
-    public String getTimeDifference(HashSet hashdate1,HashSet hashdate2) {
-       Date date2 = (Date) hashdate2.iterator().next();
-       Date date1 = (Date) hashdate1.iterator().next();
-       long difference = date1.getTime() - date2.getTime();
-      
-       Calendar c = Calendar.getInstance(); 
-       //Set time in milliseconds
-       c.setTimeInMillis(difference);
     
-       
-       int mYear = c.get(Calendar.YEAR)-1970;
-       int mMonth = c.get(Calendar.MONTH); 
-     
-       return Integer.toString(mYear) + " years and " + Integer.toString(mMonth)+ " months";
-       
+    public String getTimeDifference(HashSet hashdate1, HashSet hashdate2) {
+        Date date2 = (Date) hashdate2.iterator().next();
+        Date date1 = (Date) hashdate1.iterator().next();
+        long difference = date1.getTime() - date2.getTime();
+        
+        Calendar c = Calendar.getInstance();
+        //Set time in milliseconds
+        c.setTimeInMillis(difference);
+        
+        int mYear = c.get(Calendar.YEAR) - 1970;
+        int mMonth = c.get(Calendar.MONTH);        
+        
+        return Integer.toString(mYear) + " years and " + Integer.toString(mMonth) + " months";
+        
     }
     
     public String getTimeDifferenceSinceNow(HashSet hashdate) {
-       Date date = (Date) hashdate.iterator().next();
-       long difference = System.currentTimeMillis()-date.getTime();
-      
-       Calendar c = Calendar.getInstance(); 
-       //Set time in milliseconds
-       c.setTimeInMillis(difference);
-       int mYear = c.get(Calendar.YEAR)-1970;
-       int mMonth = c.get(Calendar.MONTH); 
-     
-       return Integer.toString(mYear) + " years and " + Integer.toString(mMonth)+ " months";
-       
+        Date date = (Date) hashdate.iterator().next();
+        long difference = System.currentTimeMillis() - date.getTime();
+        
+        Calendar c = Calendar.getInstance();
+        //Set time in milliseconds
+        c.setTimeInMillis(difference);
+        int mYear = c.get(Calendar.YEAR) - 1970;
+        int mMonth = c.get(Calendar.MONTH);        
+        
+        return Integer.toString(mYear) + " years and " + Integer.toString(mMonth) + " months";
+        
     }
     
     public String getFormatedDate(HashSet hashdate) {
-       Date date = (Date) hashdate.iterator().next();
-       SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy");
-       return formater.format(date);
+        Date date = (Date) hashdate.iterator().next();
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yy");
+        return formater.format(date);
     }
     
     private void getClassedSkill() {
-        Collection<Skill> skills =  cv.getSkillCollection();    
+        Collection<Skill> skills = cv.getSkillCollection();        
         organizedSkill = new HashMap<>();
-        for (Skill s: skills) {
+        for (Skill s : skills) {
             List<Skill> list = organizedSkill.get(s.getField());
             if (list == null) {
                 list = new ArrayList<>();
@@ -159,17 +212,25 @@ public class CvBean {
         }
         
     }
+
+    public Collection<Langage> getLangages() {
+        return langages;
+    }
+
+    public Collection<Interest> getInterests() {
+        return interests;
+    }
     
     private void getHashFriends() {
-        Collection<User> friends =  user.getUserCollection();    
+        Collection<User> friends = user.getUserCollection();        
         organizedFriends = new HashMap<>();
         int i = 0;
         List<User> lActive = new ArrayList<>();
         List<User> lReserve = new ArrayList<>();
-        organizedFriends.put("Active",lActive);
-        organizedFriends.put("Reserve",lReserve);
-        for (User u: friends) {
-            if (i<3) {
+        organizedFriends.put("Active", lActive);
+        organizedFriends.put("Reserve", lReserve);
+        for (User u : friends) {
+            if (i < 3) {
                 List<User> list = organizedFriends.get("Active");
                 list.add(u);
             } else {
@@ -177,11 +238,16 @@ public class CvBean {
                 list.add(u);
             }
         }
-
+        
     }
 
-    public User findUserById(int id){
+    public void setLoginb(LoginBean loginb) {
+        this.loginb = loginb;
+    }
+
+
+    public User findUserById(int id) {
         return userf.find(id);
     }
-
+    
 }

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Langage.findByIdLangage", query = "SELECT l FROM Langage l WHERE l.idLangage = :idLangage"),
     @NamedQuery(name = "Langage.findByName", query = "SELECT l FROM Langage l WHERE l.name = :name"),
     @NamedQuery(name = "Langage.findByLevel", query = "SELECT l FROM Langage l WHERE l.level = :level"),
-    @NamedQuery(name = "Langage.findByPublic1", query = "SELECT l FROM Langage l WHERE l.public1 = :public1")})
+    @NamedQuery(name = "Langage.findByVisibility", query = "SELECT l FROM Langage l WHERE l.visibility = :visibility")})
 public class Langage implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -47,13 +47,21 @@ public class Langage implements Serializable {
     @Size(max = 25)
     @Column(name = "level")
     private String level;
-    @Column(name = "public")
-    private Boolean public1;
+    @Size(max = 7)
+    @Column(name = "visibility")
+    private String visibility;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
     @ManyToOne(optional = false)
     private Cv idCv;
 
     public Langage() {
+    }
+
+    public Langage(String name, String level, String visibility, Cv idCv) {
+        this.name = name;
+        this.level = level;
+        this.visibility = visibility;
+        this.idCv = idCv;
     }
 
     public Langage(Integer idLangage) {
@@ -84,12 +92,12 @@ public class Langage implements Serializable {
         this.level = level;
     }
 
-    public Boolean getPublic1() {
-        return public1;
+    public String getVisibility() {
+        return visibility;
     }
 
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Cv getIdCv() {

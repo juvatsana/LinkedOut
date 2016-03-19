@@ -20,9 +20,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -74,7 +74,7 @@ public class Cv implements Serializable {
     public void setIdCv(Integer idCv) {
         this.idCv = idCv;
     }
-    
+
     public String getTitle() {
         return title;
     }
@@ -159,19 +159,6 @@ public class Cv implements Serializable {
     @Override
     public String toString() {
         return "fr.umlv.entity.Cv[ idCv=" + idCv + " ]";
-    }    
-
-    /**
-     * @return the cvCollection
-     */
-
-    /*
-    public Collection<Cv> getCvCollection() {
-        return cvCollection;
     }
-
-    public void setCvCollection(Collection<Cv> cvCollection) {
-        this.cvCollection = cvCollection;
-    }
-    */
+    
 }

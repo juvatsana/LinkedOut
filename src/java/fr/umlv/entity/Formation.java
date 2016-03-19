@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Formation.findBySchool", query = "SELECT f FROM Formation f WHERE f.school = :school"),
     @NamedQuery(name = "Formation.findByDateStart", query = "SELECT f FROM Formation f WHERE f.dateStart = :dateStart"),
     @NamedQuery(name = "Formation.findByDateEnd", query = "SELECT f FROM Formation f WHERE f.dateEnd = :dateEnd"),
-    @NamedQuery(name = "Formation.findByPublic1", query = "SELECT f FROM Formation f WHERE f.public1 = :public1")})
+    @NamedQuery(name = "Formation.findByVisibility", query = "SELECT f FROM Formation f WHERE f.visibility = :visibility")})
 public class Formation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,8 +58,9 @@ public class Formation implements Serializable {
     @Column(name = "date_end")
     @Temporal(TemporalType.DATE)
     private Date dateEnd;
-    @Column(name = "public")
-    private Boolean public1;
+    @Size(max = 7)
+    @Column(name = "visibility")
+    private String visibility;
     @JoinColumn(name = "id_cv", referencedColumnName = "id_cv")
     @ManyToOne(optional = false)
     private Cv idCv;
@@ -67,20 +68,20 @@ public class Formation implements Serializable {
     public Formation() {
     }
 
-    public Formation(String diploma, String school, Date dateStart, Date dateEnd, Boolean public1, Cv idCv) {
+    public Formation(String diploma, String school, Date dateStart, Date dateEnd, String visibility, Cv idCv) {
         this.diploma = diploma;
         this.school = school;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
-        this.public1 = public1;
+        this.visibility = visibility;
         this.idCv = idCv;
     }
 
-    public Formation(String diploma, String school, Date dateStart, Boolean public1, Cv idCv) {
+    public Formation(String diploma, String school, Date dateStart, String visibility, Cv idCv) {
         this.diploma = diploma;
         this.school = school;
         this.dateStart = dateStart;
-        this.public1 = public1;
+        this.visibility = visibility;
         this.idCv = idCv;
     }
 
@@ -129,12 +130,12 @@ public class Formation implements Serializable {
         this.dateEnd = dateEnd;
     }
 
-    public Boolean getPublic1() {
-        return public1;
+    public String getVisibility() {
+        return visibility;
     }
 
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public Cv getIdCv() {

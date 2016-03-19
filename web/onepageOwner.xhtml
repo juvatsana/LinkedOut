@@ -39,28 +39,29 @@
 
     <body data-spy="scroll" data-target="#navbar" data-offset="0">
         <f:metadata>
-            <f:viewParam name="userId" value="#{cvBean.userId}" converter="javax.faces.Integer" />
-            <f:viewAction action="#{cvBean.init}" />
             <f:viewAction action="#{editBean.initUserId({loginBean.idUser})}" />      
             <f:viewAction action="#{editBean.initEditBean}" />
         </f:metadata>
-        
+
         <header id="header" role="banner">
             <div class="container">
                 <div id="navbar" class="navbar navbar-default">
                     <div class="collapse navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="#headerwrap"><i class="glyphicon glyphicon-home"></i></a></li>
-                            <li><h:outputLink value="onepage.xhtml?userId=#{loginBean.idUser}">Quit Edit</h:outputLink></li>
                             <li><a href="#profile">Profile</a></li>
                             <li><a href="#formation">Formation</a></li>
                             <li><a href="#experience">Experience</a></li>
                             <li><a href="#skill">Skill</a></li>                          
+                            <li><a href="#langage">Langage</a></li>
+                            <li><a href="#interest">Interest</a></li>
                             <li><a href="#friend">Friend</a></li>
-                            <li><a href="#contact">Contact</a></li>
-                            <li onmousedown="window.open('research.xhtml','_blank')">   
-                            <h:outputLink value="research.xhtml">Research</h:outputLink>
+                            <li><h:outputLink value="onepage.xhtml?userId=#{loginBean.idUser}">Quit Edit</h:outputLink></li>
+                            <li onmousedown="window.open('research.xhtml', '_blank')">   
+                                <h:outputLink value="research.xhtml"><i class="glyphicon glyphicon-search"/></h:outputLink>
                             </li> 
+                            <li><h:outputLink value="index.xhtml"><i class="glyphicon glyphicon-off"/></h:outputLink></li>
+
 
                         </ul>
                     </div>
@@ -85,7 +86,7 @@
                     <div class="center">
                         <h2 class="text-primary">Profile</h2>
                         <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
-                    </div><!--/.center-->   
+                    </div><!--/.center-->  
                     <div class="gap"></div>
                     <h:form id="formSaveProfile"> 
                         <div class="row center">
@@ -131,14 +132,26 @@
                                             <t class ="text-danger"><h:inputText value="#{itemF.school}"/></t> <br/>
                                         </p>
                                     </div>
+                                   
                                     <div class="col-lg-3">
                                         date debut : <h:inputText value="#{itemF.dateStart}"><f:convertDateTime pattern="dd/MM/yyyy"/>  </h:inputText><br/>
                                         date fin : 
                                         <h:inputText style="margin-left: 21px;" value="#{itemF.dateEnd}">  
                                             <f:convertDateTime pattern="dd/MM/yyyy"/>  
                                         </h:inputText>
+                                        
+                                        <h:selectOneMenu  value="#{itemF.visibility}">
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h:commandLink action="#{editBean.deleteFormation({itemF.idFormation})}" id="form#{itemF.idFormation}" styleClass="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </h:commandLink>
                                     </div>
                                 </ui:fragment>
+
                             </ui:repeat>
                         </div><!--/.row -->
                         <div class="row">
@@ -153,7 +166,7 @@
                                         <h:inputText value="#{editBean.formationSchool}" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <h:outputText value="Formation start: " />
+                                        <h:outputText value="Formation start (dd/mm/yyyy): " />
                                         <h:inputText value="#{editBean.formationStart}" class="form-control"/>
                                     </div>
                                     <div class="form-group">
@@ -164,8 +177,8 @@
                                     <div class="form-group"  style="margin-left: 10px;">
                                         <h:outputText value="Privacy : " />
                                         <h:selectOneMenu id="skillPublic" value="#{editBean.formationPublic}">
-                                            <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
-                                            <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
                                         </h:selectOneMenu>
                                     </div>
                                     <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addFormation}"  />
@@ -212,10 +225,19 @@
                                     date debut : <h:inputText value="#{item.dateStart}"><f:convertDateTime pattern="dd/MM/yyyy"/>  </h:inputText><br/>
                                     date fin :    
                                     <h:inputText style="margin-left: 21px;" value="#{item.dateEnd}">  
-                                        <f:convertDateTime pattern="dd/MM/yyyy"/>  
+                                        <f:convertDateTime pattern="dd/mm/yyyy"/>  
                                     </h:inputText>
+                                    <h:selectOneMenu id="pub#{item.idExperience}" value="#{item.visibility}">
+                                            <f:selectItem  itemLabel="public" itemValue="public" />
+                                            <f:selectItem  itemLabel="private" itemValue="private" />
+                                    </h:selectOneMenu>
                                 </div>
+                                <div class="col-lg-1">
+                                    <h:commandLink action="#{editBean.deleteExperience({item.idExperience})}" id="form#{itemF.idFormation}" styleClass="btn btn-danger btn-xs">
+                                        <span class="glyphicon glyphicon-minus"></span>
+                                    </h:commandLink>
 
+                                </div>
                             </ui:repeat>
                         </div><!--/.row -->
                         <div class="row">
@@ -249,8 +271,8 @@
                                     <div class="form-group"  style="margin-left: 10px;">
                                         <h:outputText value="Privacy : " />
                                         <h:selectOneMenu id="experiencePublic" value="#{editBean.experiencePublic}">
-                                            <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
-                                            <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                            <f:selectItem  itemLabel="public" itemValue="public" />
+                                            <f:selectItem  itemLabel="private" itemValue="private" />
                                         </h:selectOneMenu>
                                     </div>
                                     <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addExperience}"  />
@@ -267,6 +289,7 @@
                 </div><!--/.box-->
             </div><!--/.container-->
         </section><!--/#experience-->
+        
         <section id="skill">
             <div class="container">
                 <div class="box">
@@ -275,52 +298,75 @@
                         <!--<p class="lead">Pellentesque habitant morbi tristique senectus et netus et <br/>malesuada fames ac turpis egestas.</p>-->
                     </div><!--/.center-->   
                     <div class="gap"></div>
-                    
+                    <h:form>
                     <c:forEach items="#{editBean.organizedSkill}" var="entry">
                         <div class="row">
                             <div class="col-lg-2 col-lg-offset-1">
                                 <h5>#{entry.key}</h5>
                             </div>
-                            <ui:repeat value="#{entry.value}" var="experience" varStatus="loop">
+                            <ui:repeat value="#{entry.value}" var="skill" varStatus="loop">
 
                                 <div class="#{loop.index % 3 != 0 or loop.index==0 ? 'col-lg-3 centered' : 'col-lg-3 col-lg-offset-3 centered'}">
-                                    <!--<canvas id="#{experience.name}" height="130" width="130"></canvas>-->
+                                    <!--<canvas id="#{skill.name}" height="130" width="130"></canvas>-->
                                     <h:form>
-                                        <h:commandLink action="#{cvBean.deleteSkill({experience.field},{experience.name})}" id="but#{experience.name}" styleClass="btn btn-danger btn-xs">
+                                        <h:commandLink action="#{editBean.deleteSkill({skill.idSkill})}" id="but#{skill.name}" styleClass="btn btn-danger btn-xs">
                                             <span class="glyphicon glyphicon-minus"></span>
                                         </h:commandLink>
                                     </h:form>
-                                    <div id="#{experience.name}" ></div>
-                                    <p>#{experience.name}</p>
+                                    <div id="#{skill.name}" ></div> 
+                                    <!--<canvas id="#{skill.name}" height="130" width="130"></canvas>-->
+                                    <p>#{skill.name}</p>
 
                                     <h:form id="poi-form" styleClass="invisible">
 
-                                        <h:commandButton id="btn#{experience.name}" action="#{cvBean.editSkillLevel({experience.field},{experience.name})}"/>
+                                        <h:commandButton id="btn#{skill.name}" action="#{editBean.editSkillLevel({skill.field},{skill.name})}"/>
 
                                     </h:form>
+                                    <!--<script>
+                                        var doughnutData = [
+                                            {
+                                                value: #{skill.level},
+                                                color: "#0080ff"
+                                            },
+                                            {
+                                                value: 100 - #{skill.level},
+                                                color: "#ecf0f1"
+                                            }
+                                        ];
+                                        var encodedName = escapeRegExp("#{skill.name}");
+                                        var e = document.getElementById("#{skill.name}");
+                                        alert(document.getElementById("#{skill.name}"));
+                                        alert(e);
+                                        e.id = encodedName;
+                                        
+                                        var myDoughnut = new Chart(document.getElementById("#"+encodedName).getContext("2d")).Doughnut(doughnutData);
+                                    </script>-->
 
                                     <script>
 
-                                        var encodedName = escapeRegExp("#{experience.name}");
-                                        var e = document.getElementById("#{experience.name}");
+                                        var encodedName = escapeRegExp("#{skill.name}");
+                                        var e = document.getElementById("#{skill.name}");
                                         e.id = encodedName;
 
                                         $("#" + encodedName).roundSlider({
                                             sliderType: "min-range",
                                             radius: 85,
                                             change: traceEvent,
-                                            value: #{experience.level}
+                                            value: #{skill.level}
                                         });
                                         function traceEvent(e) {
                                             alert(e.value);
                                             document.getElementById('roundVal').value = e.value;
                                             alert('#{cvBean.roundValue}');
-                                            document.getElementById('poi-form:btn#{experience.name}').click();
+                                            document.getElementById('poi-form:btn#{skill.name}').click();
                                             alert(e.value);
                                         }
                                         ;
                                     </script>
-
+                                    <h:selectOneMenu id="pub#{skill.idSkill}" value="#{skill.visibility}">
+                                            <f:selectItem  itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                    </h:selectOneMenu>
                                 </div>
                             </ui:repeat>
 
@@ -355,8 +401,8 @@
                                 <div class="form-group"  style="margin-left: 10px;">
                                     <h:outputText value="Privacy : " />
                                     <h:selectOneMenu id="skillPublic" value="#{editBean.skillPublic}">
-                                        <f:selectItem id="public1" itemLabel="Public" itemValue="true" />
-                                        <f:selectItem id="public2" itemLabel="Private" itemValue="false" />
+                                        <f:selectItem  itemLabel="public" itemValue="public" />
+                                        <f:selectItem itemLabel="private" itemValue="private" />
                                     </h:selectOneMenu>
                                 </div>
                                 <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Submit" action="#{editBean.addSkill}"  />
@@ -366,17 +412,160 @@
                             <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAdd" aria-expanded="false" aria-controls="collapseAdd">Add</button>
                         </div>
                         <div class="col-lg-1 col-lg-offset-4">
-                            <button type="button" class="btn btn-success">Save</button>
+                            <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateSkill()}" />
+
                         </div>
-                    </div><!--/.box-->
+                    </div><!--/row-->
+                  </h:form > 
                 </div><!--/.box-->
             </div><!--/.container-->
         </section><!--/#skill-->
 
+        <section id="langage">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Langage</h2>
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:form id="formSaveLangage"> 
+                        <div class="row">
+                            <ui:repeat value="#{editBean.langages}" var="itemL">
+                                <ui:fragment >
+                                    <div class="col-lg-6 col-lg-offset-3">
+                                        <p><h:inputText class="text-primary" value="#{itemL.name}"/> : 
+                                            <h:selectOneMenu id="skillLevel" value="#{itemL.level}">
+                                            <f:selectItem id="level1" itemLabel="None" itemValue="None" />
+                                            <f:selectItem id="level2" itemLabel="Beginner" itemValue="Beginner" />
+                                            <f:selectItem id="level3" itemLabel="Intermediary" itemValue="Intermediary" />
+                                            <f:selectItem id="level4" itemLabel="Professional" itemValue="Professional" />
+                                            <f:selectItem id="level5" itemLabel="Advanced" itemValue="Advanced" />
+                                            <f:selectItem id="level6" itemLabel="Fluent" itemValue="Fluent" />
+                                        </h:selectOneMenu>
+                                        </p>
+                                        <p>
+                                            <h:selectOneMenu id="pub#{itemL.idLangage}" value="#{itemL.visibility}">
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                            </h:selectOneMenu>
+                                        </p>
+                                    </div>
+                                    <div class="col-lg-1">
+                                        <h:commandLink action="#{editBean.deleteLangage({itemL.idLangage})}" id="form#{itemL.idLangage}" styleClass="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </h:commandLink>
+                                    </div>
+                                </ui:fragment>
+                            </ui:repeat>
+                        </div><!--/.row -->
+                        <div class="row">
+                            <div class="collapse col-lg-offset-1" id="collapseAddLangage">
+                                <h:form class="form-inline">
+                                    <div class="form-group">
+                                        <h:outputText value="Langage name : " />
+                                        <h:inputText value="#{editBean.langageName}" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Langage Level : " />
+                                        <h:selectOneMenu id="skillLevel" value="#{editBean.langageLevel}">
+                                            <f:selectItem id="level1" itemLabel="None" itemValue="None" />
+                                            <f:selectItem id="level2" itemLabel="Beginner" itemValue="Beginner" />
+                                            <f:selectItem id="level3" itemLabel="Intermediary" itemValue="Intermediary" />
+                                            <f:selectItem id="level4" itemLabel="Professional" itemValue="Professional" />
+                                            <f:selectItem id="level5" itemLabel="Advanced" itemValue="Advanced" />
+                                            <f:selectItem id="level6" itemLabel="Fluent" itemValue="Fluent" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <div class="form-group"  style="margin-left: 10px;">
+                                        <h:outputText value="Privacy : " />
+                                        <h:selectOneMenu id="skillPublic" value="#{editBean.langagePublic}">
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addLangage}"  />
+                                </h:form>
+                            </div>
+                            <div class="col-lg-2 col-lg-offset-3" >
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAddLangage" aria-expanded="false" aria-controls="collapseAddLangage">ADD</button>
+                            </div>
+                            <div class="col-lg-1 col-lg-offset-4">
+                                <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateLangage}" />
+                            </div>
+                        </div>
+                    </h:form > 
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#langage-->
+
+
+        <section id="interest">
+            <div class="container">
+                <div class="box">
+                    <div class="center">
+                        <h2 class="text-primary">Interest</h2>
+                    </div><!--/.center-->   
+                    <div class="gap"></div>
+                    <h:form id="formSaveInterest"> 
+                        <div class="row">
+                            <ui:repeat value="#{editBean.interests}" var="itemI">
+                                <ui:fragment >
+                                    <div class="col-lg-4 col-lg-offset-3">
+                                        <p><h:inputText class="text-primary" value="#{itemI.name}"/>
+                                        </p>
+                                        <br></br>
+                                        <blockquote>
+                                            <h:inputTextarea value="#{itemI.description}"/>
+                                        </blockquote>
+                                        <h:selectOneMenu id="pub#{itemI.idExperience}" value="#{itemI.visibility}">
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    
+                                    <div class="col-lg-1">
+                                        <h:commandLink action="#{editBean.deleteLangage({itemI.idInterest})}" id="form#{itemI.idInterest}" styleClass="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-minus"></span>
+                                        </h:commandLink>
+
+                                    </div>
+                                </ui:fragment>
+                            </ui:repeat>
+                        </div><!--/.row -->
+                        <div class="row">
+                            <div class="collapse col-lg-offset-1" id="collapseAddInterest">
+                                <h:form class="form-inline">
+                                    <div class="form-group">
+                                        <h:outputText value="Interest name : " />
+                                        <h:inputText value="#{editBean.interestName}" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <h:outputText value="Interest description: " />
+                                        <h:inputTextarea value="#{editBean.interestDescription}" class="form-control"/>
+                                    </div>
+                                    <div class="form-group"  style="margin-left: 10px;">
+                                        <h:outputText value="Privacy : " />
+                                        <h:selectOneMenu id="skillPublic" value="#{editBean.interestPublic}">
+                                            <f:selectItem itemLabel="public" itemValue="public" />
+                                            <f:selectItem itemLabel="private" itemValue="private" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                    <h:commandButton style="margin-left: 10px;" class="btn btn-primary" value="Add" action="#{editBean.addInterest}"  />
+                                </h:form>
+                            </div>
+                            <div class="col-lg-2 col-lg-offset-3" >
+                                <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#collapseAddInterest" aria-expanded="false" aria-controls="collapseAddInterest">ADD</button>
+                            </div>
+                            <div class="col-lg-1 col-lg-offset-4">
+                                <h:commandButton class="btn btn-success" value="Save" action="#{editBean.updateInterest}" />
+                            </div>
+                        </div>
+                    </h:form > 
+                </div><!--/.box-->
+            </div><!--/.container-->
+        </section><!--/#interest-->
 
         <section id="friend">
-
-
             <div class="container">
                 <div class="box">
                     <div class="center">
@@ -397,11 +586,11 @@
                                     <ui:repeat value="#{editBean.organizedFriends['Active']}" var="friend">
                                         <div class="col-sm-3">
                                             <div class="member">
-<!--                                                <h:form>
-                                                    <h:commandLink style="margin-right: 100px;" styleClass="btn btn-danger btn-xs">
-                                                        <span class="glyphicon glyphicon-minus"></span>
-                                                    </h:commandLink>
-                                                </h:form>                -->
+                                                <!--                                                <h:form>
+                                                                                                    <h:commandLink style="margin-right: 100px;" styleClass="btn btn-danger btn-xs">
+                                                                                                        <span class="glyphicon glyphicon-minus"></span>
+                                                                                                    </h:commandLink>
+                                                                                                </h:form>                -->
                                                 <a class="" href="onepage.xhtml?userId=#{friend.idUser}" >
                                                     <p><img class=" img-circle" src="#{friend.sexe =='H'?'ressources/img/homme.jpg':'ressources/img/femme.jpg'}" alt="" /></p>
                                                     <h3>#{friend.firstname} #{friend.surname} <small class="designation">#{friend.username}</small></h3>

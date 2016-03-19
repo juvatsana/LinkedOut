@@ -8,7 +8,7 @@
         <navigation-case>
             <from-action>#{loginBean.validate}</from-action>
             <from-outcome>true</from-outcome>
-            <to-view-id>/onepageOwner.xhtml?userId=#{loginBean.idUser}</to-view-id>
+            <to-view-id>/onepage.xhtml?userId=#{loginBean.idUser}</to-view-id>
             <redirect/>
         </navigation-case>
         <navigation-case>
@@ -22,9 +22,14 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/onepage.xhtml?userId=#{loginBean.idUser}</from-view-id>
+        <from-view-id>/onepage.xhtml?userId=#{cvBean.idUser}</from-view-id>
         <navigation-case>
-            <to-view-id>/research.xhtml</to-view-id>
+            <to-view-id>/onepageOwner.xhtml?userId=#{loginBean.idUser}</to-view-id>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/onepage.xhtml?userId=#{cvBean.idUser}</to-view-id>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
     
@@ -52,8 +57,7 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/onepageOwner.xhtml</from-view-id>
-        
+        <from-view-id>/onepageOwner.xhtml</from-view-id>        
         <navigation-case>
             <to-view-id>/onepageOwner.xhtml?userId=#{loginBean.idUser}#skill</to-view-id>        
             <redirect/>
