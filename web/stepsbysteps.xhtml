@@ -5,7 +5,12 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core" >
     <head>
         <title>LinkedOut</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -31,7 +36,7 @@ and open the template in the editor.
                             </span>
                         </a>
                     </li>
-
+                    <!--
                     <li role="presentation" class="disabled">
                         <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" title="Step 2">
                             <span class="round-tab">
@@ -46,7 +51,7 @@ and open the template in the editor.
                             </span>
                         </a>
                     </li>
-
+                    -->
                     <li role="presentation" class="disabled">
                         <a href="#complete" data-toggle="tab" aria-controls="complete" role="tab" title="Complete">
                             <span class="round-tab">
@@ -57,52 +62,56 @@ and open the template in the editor.
                 </ul>
             </div>
 
-            <form role="form">
+            <h:form id="formAddUser">
                 <div class="tab-content">
                     <div class="tab-pane active" role="tabpanel" id="step1">
                         <div class="step1">
+
                             <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">First Name</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="First Name"></input>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Email address</label>
+                                    <h:inputText value="#{cvBean.email}" a:type="email" class="form-control" id="email" a:placeholder="Email" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">PassWord</label>
+                                    <h:inputText value="#{cvBean.password}" a:type="password" class="form-control" id="pass" a:placeholder="PassWord" />
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Last Name</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Last Name"></input>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">First Name</label>
+                                    <h:inputText value="#{cvBean.username}" a:type="text" class="form-control" id="firstname" a:placeholder="First Name" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Last Name</label>
+                                    <h:inputText value="#{cvBean.lastname}" a:type="text" class="form-control" id="lastname" a:placeholder="Last Name" />
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></input>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Mobile Number</label>
+                                    <h:inputText value="#{cvBean.telephone}" a:type="tel" class="form-control" id="number" a:placeholder="Mobile Number" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Adresse</label>
+                                    <h:inputText value="#{cvBean.adresse}" a:type="text" class="form-control" id="adresse" a:placeholder="Adresse" />
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Confirm Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></input>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label for="exampleInputEmail1">Mobile Number</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></input>
-                            </div>
-                            <div class="col-md-6">
-                            <label for="exampleInputEmail1">Email address</label>
-                                <div class="row">
-                                    <div class="col-md-3 col-xs-3">
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></input>
-                                    </div>
-                                    <div class="col-md-9 col-xs-9">
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"></input>
-                                    </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <label for="exampleInputEmail1">Age</label>
+                                    <h:inputText value="#{cvBean.age}" a:type="text" class="form-control" id="age" a:placeholder="Age" />
                                 </div>
                             </div>
                         </div>
-                        </div>
                         <ul class="list-inline pull-right">
-                            <li><button type="button" class="btn btn-primary next-step">Save and continue</button></li>
+                            <h:commandButton class="btn btn-primary next-step" value="Save" action="#{cvBean.addUser()}"></h:commandButton>
                         </ul>
                     </div>
+                    <!--
                     <div class="tab-pane" role="tabpanel" id="step2">
                         <div class="step2">
                             <div class="step_21">
@@ -297,7 +306,7 @@ and open the template in the editor.
                             <li><button type="button" class="btn btn-default next-step">Skip</button></li>
                             <li><button type="button" class="btn btn-primary btn-info-full next-step">Save and continue</button></li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="tab-pane" role="tabpanel" id="complete">
                         <div class="step44">
                             <h5>Completed</h5>
@@ -307,7 +316,7 @@ and open the template in the editor.
                     </div>
                     <div class="clearfix"></div>
                 </div>
-            </form>
+            </h:form>
         </div>
     </section>
    </div>

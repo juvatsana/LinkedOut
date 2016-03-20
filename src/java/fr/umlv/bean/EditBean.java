@@ -452,10 +452,13 @@ public class EditBean {
 
     
     public String addSkill() {
+        System.out.println("ALLO");
         if (!skillField.equals("") && !skillName.equals("")) {
 
             Skill s = new Skill(skillName, skillField, skillLevel, skillPublic, cv);
-            sf.insertSkill(s);
+            System.out.println(s);
+            sf.create(s);
+            //sf.insertSkill(s);
         }
         skillField = "";
         skillName = "";

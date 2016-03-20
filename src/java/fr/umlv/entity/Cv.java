@@ -63,6 +63,11 @@ public class Cv implements Serializable {
     public Cv() {
     }
 
+    public Cv(User idUser) {
+        this.idUser = idUser;
+    }
+
+    
     public Cv(Integer idCv) {
         this.idCv = idCv;
     }

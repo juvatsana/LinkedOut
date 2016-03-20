@@ -51,13 +51,13 @@
             <div class="list-group" id="list">
                 
                 <c:forEach items="#{cvBean.allCv}" var="item">
-                    <ui:param name="myVar" value="onepage.xhtml?userId=#{item.idCv}" />
-                    <ui:param name="prenom" value="#{cvBean.findUserById(1).firstname}" />
-                    <a class="list-group-item dm" href="#{myVar}" data-name="#{item.title}">#{item.title}</a>
+                    <ui:param name="myVar" value="onepage.xhtml?userId=#{item.idUser.idUser}" />
+                    <ui:param name="prenom" value="#{cvBean.findUserById({item.idUser.idUser}).firstname}" />
+                    <ui:param name="nom" value="#{cvBean.findUserById({item.idUser.idUser}).surname}" />
+                    <a class="list-group-item dm" href="#{myVar}" data-name="#{item.title}">#{prenom} #{nom} : #{item.title}</a>
                 </c:forEach>
 
             </div>
         </div>
     </h:body>
 </html>
-

@@ -98,6 +98,17 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
+    public User(String email,String password, String firstname, String lastname,int age,int telephone,String adresse) {
+        this.username = email;
+        this.password = password;
+          
+        this.firstname = firstname;
+        this.surname = lastname;
+        this.age = age;
+        this.telephone = telephone;
+        this.adresse = adresse;
+        this.sexe = "H";
+      }
     public User(Integer idUser, String username, String password, String sexe, int age) {
         this.idUser = idUser;
         this.username = username;

@@ -51,6 +51,15 @@ public class CvBean {
     private User user;
     private User userlogin;
     
+    
+    private String username;
+    private String lastname;
+    private String email;
+    private String password;
+    private int age;
+    private int telephone;
+    private String adresse;
+    
     //langage
     private Collection<Langage> langages;
     
@@ -142,14 +151,131 @@ public class CvBean {
         this.user = user;
     }
     
+    
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the lastname
+     */
+    public String getLastname() {
+        return lastname;
+    }
+
+    /**
+     * @param lastname the lastname to set
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * @return the age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     * @param age the age to set
+     */
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    /**
+     * @return the telephone
+     */
+    public int getTelephone() {
+        return telephone;
+    }
+
+    /**
+     * @param telephone the telephone to set
+     */
+    public void setTelephone(int telephone) {
+        this.telephone = telephone;
+    }
+
+    /**
+     * @return the adresse
+     */
+    public String getAdresse() {
+        return adresse;
+    }
+
+    /**
+     * @param adresse the adresse to set
+     */
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    
+    public boolean addUser()
+    {
+        try {
+            userf.create(new User(email,password,username,lastname,age,telephone,adresse));
+            user = userf.getIdByUsername(email);
+            userId = user.getIdUser();
+            loginb.setError("signe up sucessfull, pls connect");
+            System.out.println("true ----------------");
+            cvf.create(new Cv(user));
+            return true;
+        } catch(Exception e){
+            System.out.println(e);
+            return false;
+        }
+    }
+    
+    
+    
     public void init() {
         user = userf.find(userId);
         cv = cvf.getCvId(userId);
         getClassedSkill();
         getHashFriends();
         langages = cv.getLangageCollection();
-        interests = cv.getInterestCollection();
-        
+        interests = cv.getInterestCollection();      
         allCv = cvf.getAllCv();
         
         userlogin = userf.find(loginb.getIdUser());
@@ -246,8 +372,9 @@ public class CvBean {
     }
 
 
-    public User findUserById(int id) {
-        return userf.find(id);
+    public User findUserById(HashSet hashID) {
+       int id = (int) hashID.iterator().next();
+       return userf.find(id);
     }
     
 }

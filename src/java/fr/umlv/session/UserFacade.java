@@ -36,4 +36,12 @@ public class UserFacade extends AbstractFacade<User> {
 
         return u ;
     }
+    
+    public User getIdByUsername(String name) {
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.username = :username");
+        q.setParameter("username", name);
+        User u = (User)q.getSingleResult();
+
+        return u;
+    }
 }

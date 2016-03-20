@@ -243,7 +243,7 @@
                     <div class="gap"></div>
                     <div class="row">
                         <ui:repeat value="#{cvBean.langages}" var="itemL">
-                            <ui:fragment rendered="#{itemF.visibility == 'public' or loginBean.idUser == cvBean.user.idUser}" >
+                            <ui:fragment rendered="#{itemL.visibility == 'public' or loginBean.idUser == cvBean.user.idUser}" >
                                 <div class="col-lg-6 col-lg-offset-3">
                                     <p><t class="text-primary">#{itemL.name}</t> : <t class="text-success">#{itemL.level}</t>
                                     </p>
