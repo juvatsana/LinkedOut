@@ -57,7 +57,7 @@ public class CvBean {
     private String email;
     private String password;
     private int age;
-    private int telephone;
+    private String telephone;
     private String adresse;
     
     //langage
@@ -211,14 +211,14 @@ public class CvBean {
     /**
      * @return the telephone
      */
-    public int getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
     /**
      * @param telephone the telephone to set
      */
-    public void setTelephone(int telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 
@@ -257,7 +257,7 @@ public class CvBean {
             userf.create(new User(email,password,username,lastname,age,telephone,adresse));
             user = userf.getIdByUsername(email);
             userId = user.getIdUser();
-            loginb.setError("signe up sucessfull, pls connect");
+            loginb.setError("sign up sucessfull, pls connect");
             System.out.println("true ----------------");
             cvf.create(new Cv(user));
             return true;

@@ -75,9 +75,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "age")
-    private int age;
+    private Integer age;
     @Column(name = "telephone")
-    private Integer telephone;
+    private String telephone;
     @Size(max = 25)
     @Column(name = "adresse")
     private String adresse;
@@ -98,7 +98,7 @@ public class User implements Serializable {
         this.idUser = idUser;
     }
 
-    public User(String email,String password, String firstname, String lastname,int age,int telephone,String adresse) {
+    public User(String email,String password, String firstname, String lastname,int age,String telephone,String adresse) {
         this.username = email;
         this.password = password;
           
@@ -173,11 +173,11 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public Integer getTelephone() {
+    public String getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(Integer telephone) {
+    public void setTelephone(String telephone) {
         this.telephone = telephone;
     }
 

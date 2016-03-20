@@ -133,6 +133,14 @@ public class EditBean {
     public void setRoundValue(String roundValue) {
         this.roundValue = roundValue;
     }
+
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
     
     public void initEditBean() {
         u = uf.getUserById(userId);
@@ -536,7 +544,13 @@ public class EditBean {
         return "onepageOwner.xhtml?userId=" + Integer.toString(userId) + "#experience";
     }
 
-    public String updateProfile() {
+    public String updateCv() {
+        cvf.edit(cv);
+      
+        return "onepageOwner.xhtml?userId=" + Integer.toString(userId);
+
+    }
+    public String updateProfile() {        
         uf.edit(u);
         return "onepageOwner.xhtml?userId=" + Integer.toString(userId) + "#profile";
 
