@@ -81,6 +81,7 @@ public class CvBean {
             System.out.println("************************");
             System.out.println(userlogin.getUserCollection());
             userlogin.getUserCollection().remove(user);
+            userf.edit(userlogin);
             System.out.println(userlogin.getUserCollection());
             System.out.println("************************");
         } else {
@@ -88,6 +89,7 @@ public class CvBean {
             System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
             System.out.println(userlogin.getUserCollection());
             userlogin.getUserCollection().add(user);
+            userf.edit(userlogin);
             System.out.println(userlogin.getUserCollection());
             System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$");
         }
