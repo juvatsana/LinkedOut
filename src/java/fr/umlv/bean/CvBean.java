@@ -358,7 +358,7 @@ public class CvBean {
         organizedFriends.put("Active", lActive);
         organizedFriends.put("Reserve", lReserve);
         for (User u : friends) {
-            if (i < 3) {
+            if (i < 2) {
                 List<User> list = organizedFriends.get("Active");
                 list.add(u);
             } else {
