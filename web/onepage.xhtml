@@ -289,6 +289,13 @@
                     </div>
                     <div class="gap"></div> 
                     <div id="team-scroller" class="carousel scale">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            <li data-target="#team-scroller" data-slide-to="0" class="active"></li>
+                            <li data-target="#team-scroller" data-slide-to="1"></li>
+                            <li data-target="#team-scroller" data-slide-to="2"></li>
+                            <li data-target="#team-scroller" data-slide-to="3"></li>
+                        </ol>
                         <div class="carousel-inner">
                             <div class="item active">
                                 <div class="row">
@@ -334,11 +341,14 @@
                             </div>
                         </div>
 
-                        <a class="left-arrow" href="#team-scroller" data-slide="prev">
-                            <i class="fa fa-angle-double-left" style="font-size:36px"></i>
+
+                        <a class="left carousel-control" href="#team-scroller" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
                         </a>
-                        <a class="right-arrow" href="#team-scroller" data-slide="next">
-                            <i class="fa fa-angle-double-right" style="font-size:36px"></i>
+                        <a class="right carousel-control" href="#team-scroller" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
                         </a>
                     </div><!--/.carousel-->
                 </div><!--/.box-->

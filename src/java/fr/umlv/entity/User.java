@@ -76,6 +76,7 @@ public class User implements Serializable {
     @NotNull
     @Column(name = "age")
     private Integer age;
+    @Size(max = 50)
     @Column(name = "telephone")
     private String telephone;
     @Size(max = 25)
@@ -108,6 +109,14 @@ public class User implements Serializable {
         this.telephone = telephone;
         this.adresse = adresse;
         this.sexe = "H";
+        
+        System.out.println(this.username);
+        System.out.println(this.password);
+        System.out.println(this.firstname);
+        System.out.println(this.surname);
+        System.out.println(this.age);
+        System.out.println(this.telephone);
+        System.out.println(this.adresse);
       }
     public User(Integer idUser, String username, String password, String sexe, int age) {
         this.idUser = idUser;

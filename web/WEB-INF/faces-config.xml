@@ -59,21 +59,6 @@
     </navigation-rule>
     
     <navigation-rule>
-        <from-view-id>/inscription.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{inscriptionBean.saveUser}</from-action>
-            <from-outcome>true</from-outcome>
-            <to-view-id>/formation.xhtml</to-view-id>
-            <redirect/>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{inscriptionBean.saveUser}</from-action>
-            <from-outcome>false</from-outcome>
-            <to-view-id>/inscription.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>
-    
-    <navigation-rule>
         <from-view-id>/onepageOwner.xhtml</from-view-id>      
         <navigation-case>
             <to-view-id>/onepageOwner.xhtml?userId=#{loginBean.idUser}#profile</to-view-id>        

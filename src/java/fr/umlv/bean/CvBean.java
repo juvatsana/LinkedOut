@@ -256,7 +256,11 @@ public class CvBean {
     public boolean addUser()
     {
         try {
-            userf.create(new User(email,password,username,lastname,age,telephone,adresse));
+            User newU  = new User(email,password,username,lastname,age,telephone,adresse);
+            System.out.println("------------------");
+            System.out.println(newU);
+            System.out.println("------------------");
+            userf.create(newU);
             user = userf.getIdByUsername(email);
             userId = user.getIdUser();
             loginb.setError("sign up sucessfull, pls connect");
@@ -264,7 +268,9 @@ public class CvBean {
             cvf.create(new Cv(user));
             return true;
         } catch(Exception e){
+            System.out.println("------------------");
             System.out.println(e);
+            System.out.println("------------------");
             return false;
         }
     }
