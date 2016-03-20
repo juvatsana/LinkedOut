@@ -102,6 +102,7 @@ public class LoginBean implements Serializable{
         } else if(validateUser && !validatePass){
             this.error = "Wrong password for user :"+user;
         } 
+        this.error="";
         return validateUser && validatePass;
     }
 
